@@ -32,16 +32,18 @@ var port        = process.env.VCAP_APP_PORT || process.env.PORT || 8080;
 app.get('/', function(req, res) {
 
     res.render('index.ejs');
-
+    console.log('Connection au serveur node JS');
 })
 
 
 .post('/', urlencodedParser, function(req, res) {
 
+    console.log('Demande analyse text : '+ req.body.message);
+
     if (req.body.message != '') {
 
       personality_insights.profile({
-        text: 'req.body.message',
+        text: req.body.message,
         language: 'en' },
         function (err, response) {
             if (err)
