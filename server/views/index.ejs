@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+
+<html>
+
+    <head>
+
+        <title>Watson</title>
+
+        <style>
+
+            a {text-decoration: none; color: black;}
+
+        </style>
+
+    </head>
+
+
+    <body>
+
+        <h1>Watson</h1>
+
+
+        <form action="/" method="post">
+
+            <p>
+
+                <label for="message">Saisissez votre message pour que je puisse analyser votre personnalité :</label><br />
+
+                <textarea name="message" id="message" rows="7" cols="100"></textarea>
+
+                <input type="submit" />
+
+            </p>
+
+        </form>
+
+        <% if (typeof personality !== 'undefined') { %>
+
+            <pre><%= personality %></pre>
+
+        <% } %>
+
+    </body>
+
+</html>
