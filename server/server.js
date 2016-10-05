@@ -31,12 +31,12 @@ var sitePath = process.argv[2] || ".";
 
 // Request logging
 app.use(function(req, res, next) {
-    console.log(req.url);
+    console.log("Ressource chargé "+req.url);
     next();
 });
 
 // Start server
-console.log(sitePath);
+console.log("dossier ressource : "+sitePath);
 console.log("Starting server in: " + __dirname + '/' + sitePath);
 app.use(express.static(__dirname +'/' + sitePath));
 
