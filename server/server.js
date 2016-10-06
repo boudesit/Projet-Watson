@@ -27,37 +27,23 @@ var host        = process.env.VCAP_APP_HOST || process.env.HOST || 'localhost';
 
 var port        = process.env.VCAP_APP_PORT || process.env.PORT || 8080;
 
+var sitePath = process.argv[2] || ".";
+
+// Request logging
+app.use(function(req, res, next) {
+    console.log("Ressource chargé "+req.url);
+    next();
+});
+
+// Start server
+console.log("dossier ressource : "+sitePath);
+console.log("Starting server in: " + __dirname + '/' + sitePath);
+app.use(express.static(__dirname +'/' + sitePath));
 
 
-app.get('/', function(req, res) {
-
-    res.render('index.ejs');
-
-})
 
 
-.post('/', urlencodedParser, function(req, res) {
 
-    if (req.body.message != '') {
-
-      personality_insights.profile({
-        text: 'req.body.message',
-        language: 'en' },
-        function (err, response) {
-            if (err)
-            {
-              res.render('index.ejs', {
-                'personality': JSON.stringify(err, null, 2)
-              })
-            }
-            else
-            {
-              res.render('index.ejs', {
-                'personality': JSON.stringify(response, null, 2)
-              })
-            }
-        })}
-})
-
-
-.listen(port, host);
+app.listen(port, function() {
+    console.log("Server running at: http://localhost:" + port)
+});
