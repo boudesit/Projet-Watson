@@ -17,12 +17,42 @@
 
 
     <body>
-			<iframe src="game.html"  scrolling="no" frameborder="0" style="height: 90%; width: 90%"></iframe>
+			<iframe src="game.html"  scrolling="no" frameborder="0" width="800" height="600"></iframe>
 
         <h1>Watson</h1>
 
+        <p><input type="button" value="Embêter le serveur" id="poke" /></p>
 
-        <form action="/" method="post">
+
+
+                <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+
+                <script src="/socket.io/socket.io.js"></script>
+
+                <script>
+
+                    var socket = io.connect('http://localhost:8080');
+
+                    socket.on('message', function(message) {
+
+                        alert('Le serveur a un message pour vous : ' + message);
+
+                    })
+
+
+                    $('#poke').click(function () {
+
+                        socket.emit('message', 'Salut serveur, ça va ?');
+
+                    })
+
+                    $('#watson').submit(function(){
+                           socket.emit('personality_insights', $('#message').val());
+                           return false;
+                         });
+                </script>
+
+        <form id = "watson" action = "">
 
             <p>
 
@@ -35,13 +65,24 @@
             </p>
 
         </form>
+
         <script>
         <% if (typeof personality !== 'undefined') { %>
 
             <pre><%= personality %></pre>
 
         <% } %>
-</script>
+        </script>
     </body>
 
 </html>
+
+
+
+
+   </script>
+   <form id = "form" action = "">
+     Input: <input type="text" id="Input"><br>
+     <input type="submit" value="Submit">
+   </form>
+  </body>
