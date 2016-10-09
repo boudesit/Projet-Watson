@@ -3,86 +3,61 @@
 
 <html>
 
-    <head>
+<head>
 
-        <title>Watson</title>
+    <title>Watson</title>
 
-        <style>
+    <style>
+        a {
+            text-decoration: none;
+            color: black;
+        }
+    </style>
 
-            a {text-decoration: none; color: black;}
-
-        </style>
-
-    </head>
-
-
-    <body>
-			<iframe src="game.html"  scrolling="no" frameborder="0" width="800" height="600"></iframe>
-
-        <h1>Watson</h1>
-
-        <p><input type="button" value="Embêter le serveur" id="poke" /></p>
+</head>
 
 
+<body>
+    <iframe src="game.html" scrolling="no" frameborder="0" width="800" height="600"></iframe>
 
-                <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <h1>Watson</h1>
 
-                <script src="/socket.io/socket.io.js"></script>
-
-                <script>
-
-                    var socket = io.connect('http://localhost:8080');
-
-                    socket.on('message', function(message) {
-
-                        alert('Le serveur a un message pour vous : ' + message);
-
-                    })
+    <p><input type="button" value="Embêter le serveur" id="poke" /></p>
 
 
-                    $('#poke').click(function () {
+    <p>
 
-                        socket.emit('message', 'Salut serveur, ça va ?');
+        <label for="message">Saisissez votre message pour que je puisse analyser votre personnalité :</label><br />
 
-                    })
+        <textarea name="message" id="message" rows="7" cols="100"></textarea>
 
-                    $('#watson').submit(function(){
-                           socket.emit('personality_insights', $('#message').val());
-                           return false;
-                         });
-                </script>
+        <input id="watson" type="button" value="submit" />
 
-        <form id = "watson" action = "">
+    </p>
 
-            <p>
-
-                <label for="message">Saisissez votre message pour que je puisse analyser votre personnalité :</label><br />
-
-                <textarea name="message" id="message" rows="7" cols="100"></textarea>
-
-                <input type="submit" />
-
-            </p>
-
-        </form>
-
-        <script>
+    <script>
         <% if (typeof personality !== 'undefined') { %>
 
-            <pre><%= personality %></pre>
+        <
+        pre > <%= personality %> < /pre>
 
         <% } %>
-        </script>
-    </body>
+    </script>
+
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="js/networkManager.js"></script>
+    </script>
+</body>
 
 </html>
 
 
 
 
-   </script>
-   <form id = "form" action = "">
-     Input: <input type="text" id="Input"><br>
-     <input type="submit" value="Submit">
-   </form>
-  </body>
+</script>
+<form id="form" action="">
+    Input: <input type="text" id="Input"><br>
+    <input type="submit" value="Submit">
+</form>
+</body>
