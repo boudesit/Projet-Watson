@@ -1,6 +1,6 @@
 var express = require('express');
 var app = express();
-
+var ent = require('ent');
 var bodyParser = require('body-parser');
 var urlencodedParser = bodyParser.urlencoded({
     extended: false
@@ -54,6 +54,10 @@ io.sockets.on('connection', function(socket) {
 
 
     socket.on('personality_insights', function(message) {
+
+        //c'est pour empecher les fail XSS (injection de codes)
+        message = ent.encode(message);
+
         console.log("Allo Watson c'est quoi ma personality_insights pour se texte : " + message);
         if (message != '') {
 
@@ -63,29 +67,25 @@ io.sockets.on('connection', function(socket) {
                 },
                 function(err, response) {
                     if (err) {
-                        console.log(JSON.stringify(err, null, 2));
-                        /*
-              res.render('index.html', {
-                'personality': JSON.stringify(err, null, 2)
-              })
-
-            */
+                        JSON.parse(JSON.stringify(err, null, 2), function(k, v) {
+                          if (k ==='error'){
+                            console.log(k + " : " + v);
+                            socket.emit('reponse_personality', k + " : " + v);
+                            }
+                        });
                     } else {
                         //console.log(JSON.stringify(response, null, 2));
                         JSON.parse(JSON.stringify(response, null, 2), function(k, v) {
                           if (k ==='name' || k ==='percentage'){
                             console.log(k + " : " + v);
+                            socket.emit('reponse_personality', k + " : " + v);
                             }
                         });
-                        /*
-                        res.render('index.html', {
-                          'personality': JSON.stringify(response, null, 2)
-                        })
-                        */
+
+
                     }
                 })
         }
-
     });
 
 })
