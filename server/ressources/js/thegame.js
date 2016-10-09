@@ -23,15 +23,17 @@ theGame.prototype = {
 
 		this.scoreText = this.game.add.text(20, 20, "" + "Test", { font: "30px Arial", fill: this.white});
 		this.scoreText.fontWeight = "bold";
+		this.scoreText.setText("test1");
 	},
 
 	update: function() {
 
-		this.scoreText.setText("test1");
+
 
 		if ( game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR) )
 			{
-					this.scoreText.setText("test2");
+				var textrep = personality_insights(this.scoreText.text);
+				this.scoreText.setText(textrep);
 			}
 
 	},
