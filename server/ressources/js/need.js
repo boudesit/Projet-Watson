@@ -2,6 +2,8 @@ function need(game) {
 	this.game = game;
 	this.needSprite = null;
   this.textneed = null;
+	this.objectifs = null;
+	this.skills = null;
 };
 
 need.prototype.create = function create() {
@@ -16,9 +18,25 @@ need.prototype.create = function create() {
   //  We'll set the bounds to be from x0, y100 and be 800px wide by 100px high
   text.setTextBounds(0, 100, 800, 100);
 
+
+
 };
 
 need.prototype.update = function update() {
-  text.setText("text updated");
+  text.setText("needs :");
 
+};
+
+need.prototype.getObjectifs = function getObjectifs(){
+	return this.objectifs;
+};
+need.prototype.setObjectifs = function setObjectifs( objectifs){
+	this.objectifs = objectifs;
+};
+
+need.prototype.getSkills = function getSkills(){
+	return this.businessSkill;
+};
+need.prototype.setSkills = function setSkills( skills){
+	this.skills = skills;
 };
