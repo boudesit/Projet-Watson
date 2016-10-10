@@ -1,8 +1,10 @@
 var theGame = function(game) {
+<<<<<<< HEAD
     this.game = game;
     this.music = null;
     this.spriteBG = null;
     this.white = "#FFFFFF";
+	  this.hud = null;
 }
 
 theGame.prototype = {
@@ -26,11 +28,14 @@ theGame.prototype = {
         });
         this.scoreText.fontWeight = "bold";
         this.scoreText.setText("test1");
+        this.money = new Money(this.game);
+        this.money.create();
+
+        this.hud = new HUD(this.game);
+        this.hud.create();
     },
 
     update: function() {
-
-
 
         if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
           console.log(response.personality_insights);
@@ -40,7 +45,8 @@ theGame.prototype = {
             }
             this.scoreText.setText(response.personality_insights);
         }
-        this.scoreText.setText(response.personality_insights);  
+        this.scoreText.setText(response.personality_insights);
+        	this.hud.update();
     },
 
 
