@@ -1,5 +1,4 @@
 var theGame = function(game) {
-<<<<<<< HEAD
     this.game = game;
     this.music = null;
     this.spriteBG = null;
