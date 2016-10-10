@@ -1,18 +1,7 @@
 var socket = io.connect('http://localhost:8080');
 
-socket.on('message', function(message) {
-
-    alert('Le serveur a un message pour vous : ' + message);
-
-})
-
 socket.on('reponse_personality', function(data) {
-      console.log(data);
     alert('votre personalité : ' + data);
-})
-
-$('#poke').click(function() {
-    socket.emit('message', 'Salut serveur, ça va ?');
 })
 
 $('#watson').click(function() {
@@ -21,20 +10,16 @@ $('#watson').click(function() {
     return false;
 })
 
-function personality_insights(text)
-{
-  var socket = io.connect('http://localhost:8080');
-  console.log("personality_insights methode text : "+text);
+function personality_insights(text) {
+    var socket = io.connect('http://localhost:8080');
+    console.log("personality_insights methode text : " + text+'-------'+response);
+    response.personality_insights='waiting';
+    socket.emit('personality_insights', text)
+        .on('reponse_personality', function(data) {
+            response.personality_insights = data;
+            console.log("ce que renvoi le serveur" + data);
+        })
 
-  socket.emit('personality_insights', text);
-  
-  socket.data = "temp";
-
-  socket.on('reponse_personality', function(data) {
-        socket.data = data;
-        console.log(socket.data);
-  })
-
-  console.log(socket.data);
-  return socket.data + "t";
+    console.log("en dehors du on a : " + socket.data);
+    return socket.data;
 };
