@@ -3,45 +3,52 @@
 
 <html>
 
-    <head>
+<head>
 
-        <title>Watson</title>
+    <title>Watson</title>
 
-        <style>
+    <style>
+        a {
+            text-decoration: none;
+            color: black;
+        }
+    </style>
 
-            a {text-decoration: none; color: black;}
-
-        </style>
-
-    </head>
-
-
-    <body>
-			<iframe src="game.html"  scrolling="no" frameborder="0" style="height: 90%; width: 90%"></iframe>
-
-        <h1>Watson</h1>
+</head>
 
 
-        <form action="/" method="post">
+<body>
+    <iframe src="game.html" scrolling="no" frameborder="0" width="800" height="600"></iframe>
 
-            <p>
+    <h1>Watson</h1>
 
-                <label for="message">Saisissez votre message pour que je puisse analyser votre personnalité :</label><br />
+    <p><input type="button" value="Embêter le serveur" id="poke" /></p>
 
-                <textarea name="message" id="message" rows="7" cols="100"></textarea>
 
-                <input type="submit" />
+    <p>
 
-            </p>
+        <label for="message">Saisissez votre message pour que je puisse analyser votre personnalité :</label><br />
 
-        </form>
+        <textarea name="message" id="message" rows="7" cols="100"></textarea>
+
+        <input id="watson" type="button" value="submit" />
+
+    </p>
+
+    <script>
 
         <% if (typeof personality !== 'undefined') { %>
 
-            <pre><%= personality %></pre>
+        <
+        pre > <%= personality %> < /pre>
 
         <% } %>
 
-    </body>
+    </script>
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="js/networkManager.js"></script>
+
+  </body>
 
 </html>
