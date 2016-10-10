@@ -3,8 +3,7 @@ var theGame = function(game) {
 	this.music = null;
   this.spriteBG = null;
 	this.white = "#FFFFFF";
-	this.money = null;
-	this.duration = null;
+	this.hud = null;
 }
 
 theGame.prototype = {
@@ -30,8 +29,8 @@ theGame.prototype = {
 		this.money = new Money(this.game);
 		this.money.create();
 
-		this.duration = new Duration(this.game);
-		this.duration.create();
+		this.hud = new HUD(this.game);
+		this.hud.create();
 	},
 
 	update: function() {
@@ -42,9 +41,7 @@ theGame.prototype = {
 			{
 				var textrep = personality_insights(this.scoreText.text);
 				this.scoreText.setText(textrep);
-				this.money.update();
-				this.duration.update();
-
+				this.hud.update();
 			}
 
 	},
