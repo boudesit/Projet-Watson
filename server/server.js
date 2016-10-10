@@ -68,17 +68,17 @@ io.sockets.on('connection', function(socket) {
                 function(err, response) {
                     if (err) {
                         JSON.parse(JSON.stringify(err, null, 2), function(k, v) {
-                          if (k ==='error'){
-                            console.log(k + " : " + v);
-                            socket.emit('reponse_personality', k + " : " + v);
+                            if (k === 'error') {
+                                console.log(k + " : " + v);
+                                socket.emit('reponse_personality',    v);
                             }
                         });
                     } else {
                         //console.log(JSON.stringify(response, null, 2));
                         JSON.parse(JSON.stringify(response, null, 2), function(k, v) {
-                          if (k ==='name' || k ==='percentage'){
-                            console.log(k + " : " + v);
-                            socket.emit('reponse_personality', k + " : " + v);
+                            if (k === 'name' || k === 'percentage') {
+                                console.log(k + " : " + v);
+                                socket.emit('reponse_personality',  v           );
                             }
                         });
 
