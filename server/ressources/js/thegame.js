@@ -27,9 +27,7 @@ theGame.prototype = {
         });
         this.scoreText.fontWeight = "bold";
         this.scoreText.setText("test1");
-        this.money = new Money(this.game);
-        this.money.create();
-
+        
         this.hud = new HUD(this.game);
         this.hud.create();
     },
