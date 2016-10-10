@@ -22,6 +22,7 @@ HUD.prototype.create = function create() {
 
   this.duration = new Duration(this.game);
   this.duration.create();
+	this.duration.setDuration(this.chooseDuration());
 
 	this.estimation = new estimation(this.game);
 	this.estimation.create();
@@ -48,4 +49,9 @@ HUD.prototype.update = function update() {
 	this.go.update();
 	this.cv.update();
 	this.team.update();
+};
+
+
+HUD.prototype.chooseDuration = function chooseDuration() {
+	return Math.floor(Math.random() * (10 - 1 + 1) + 1);
 };
