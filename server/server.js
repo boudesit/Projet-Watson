@@ -35,36 +35,46 @@ var launchTradeOff = function(error, resolution) {
         console.log(JSON.stringify(resolution, null, 2));
         var test = JSON.parse(JSON.stringify(resolution, null, 2));
         console.log("result =" + test);
+        var optionArray = [];
+        var columArray = [];
+        var indexToRemove=0;
         for (var prop in test) {
-            console.log(prop + "---" + test[prop]);
-
             if (prop === 'problem') {
                 for (var prop2 in test[prop]) {
-                    console.log("in val : " + prop2 + "--" + test[prop][prop2][1].status);
+                    if (prop2 === 'columns') {
+                        columArray = test[prop][prop2];
+                    }
                     if (prop2 === 'options') {
-                        for (var i = 0; i < test[prop][prop2].length; i++) {
-                            console.log(JSON.stringify(test[prop][prop2][i],null,2));
-                        }
+                        optionArray = test[prop][prop2];
                     }
                 };
             }
-
             if (prop === 'resolution') {
-                for (var prop2 in test[prop]) {
-                    console.log("in val : " + prop2 + "--" + test[prop][prop2][1].status);
-                    console.log(" val = " + test[prop][prop2]);
-                    var arrayToKeep = [];
+                for (var prop2 in test[prop]) {                   
                     for (var i = 0; i < test[prop][prop2].length; i++) {
-                        if (test[prop][prop2][i].status != "FRONT") {
-                            arrayToKeep.push(test[prop][prop2][i]);
+                        if (test[prop][prop2][i].status === "FRONT") {
+                            indexToRemove=test[prop][prop2][i].solution_ref;
                         }
-                        console.log("in loop" + test[prop][prop2][i]);
                     }
-                    console.log(arrayToKeep);
-
                 };
 
             }
+            console.log("columns array with " + JSON.stringify(columArray, null, 2));
+            console.log("Optiion array with " + JSON.stringify(optionArray, null, 2));
+            console.log("index To remove " + indexToRemove);
+            console.log("size of  option array " + optionArray.length);
+            var arrayToKeep = [];
+            for (var i = 0; i < optionArray.length; i++) {
+                console.log(optionArray[i].key);
+                if (optionArray[i].key!=indexToRemove){
+                    console.log("push in to keep"+optionArray[i].length);
+                    arrayToKeep.push(optionArray[i]);
+                    console.log("after push "+arrayToKeep);
+                }
+            } 
+             console.log("Array to keep with " + JSON.stringify(arrayToKeep, null, 2));
+
+
         };
 
 
