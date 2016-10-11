@@ -28,8 +28,61 @@ var tradeoff_analytics = watson.tradeoff_analytics({
     version: 'v1'
 });
 
+var launchTradeOff = function(error, resolution) {
+    if (error) {
+        console.log('error:', error);
+    } else {
+        console.log(JSON.stringify(resolution, null, 2));
+        var test = JSON.parse(JSON.stringify(resolution, null, 2));
+        console.log("result =" + test);
+        var optionArray = [];
+        var columArray = [];
+        var indexToRemove=0;
+        for (var prop in test) {
+            if (prop === 'problem') {
+                for (var prop2 in test[prop]) {
+                    if (prop2 === 'columns') {
+                        columArray = test[prop][prop2];
+                    }
+                    if (prop2 === 'options') {
+                        optionArray = test[prop][prop2];
+                    }
+                };
+            }
+            if (prop === 'resolution') {
+                for (var prop2 in test[prop]) {                   
+                    for (var i = 0; i < test[prop][prop2].length; i++) {
+                        if (test[prop][prop2][i].status === "FRONT") {
+                            indexToRemove=test[prop][prop2][i].solution_ref;
+                        }
+                    }
+                };
+
+            }
+            console.log("columns array with " + JSON.stringify(columArray, null, 2));
+            console.log("Optiion array with " + JSON.stringify(optionArray, null, 2));
+            console.log("index To remove " + indexToRemove);
+            console.log("size of  option array " + optionArray.length);
+            var arrayToKeep = [];
+            for (var i = 0; i < optionArray.length; i++) {
+                console.log(optionArray[i].key);
+                if (optionArray[i].key!=indexToRemove){
+                    console.log("push in to keep"+optionArray[i].length);
+                    arrayToKeep.push(optionArray[i]);
+                    console.log("after push "+arrayToKeep);
+                }
+            } 
+             console.log("Array to keep with " + JSON.stringify(arrayToKeep, null, 2));
+
+
+        };
+
+
+    }
+};
+
 var alchemy_language = watson.alchemy_language({
-  api_key: '921795eb679fc45fa3b2d7ddfcbea46b41018602'
+    api_key: '921795eb679fc45fa3b2d7ddfcbea46b41018602'
 })
 
 var paramsForTradeoff = require('problem.json');
@@ -56,31 +109,9 @@ var io = require('socket.io').listen(server);
 io.sockets.on('connection', function(socket) {
 
     console.log('Un client se connecte !');
-    tradeoff_analytics.dilemmas(paramsForTradeoff, function(error, resolution) {
-        if (error) {
-            console.log('error:', error);
-        } else {
-            console.log(JSON.stringify(resolution, null, 2));
-            var test = JSON.parse(JSON.stringify(resolution, null, 2));
-            console.log("result =" + test);
-            for (var prop in test) {
-                console.log(prop + "---" + test[prop]);
-                if (prop === 'resolution') {
-                    for (var prop2 in test[prop]) {
-                        console.log(test[prop][prop2]);
-                    };
 
-                }
-            };
-
-            // JSON.parse(JSON.stringify(resolution, null, 2), function(k, v) {
-
-            //     console.log(typeof v);
-            //     console.log("resolution " + k +"--" +v);
-
-            //     console.log(" value "+v[0]);
-            // });
-        }
+    socket.on('tradeOff', function() {
+        tradeoff_analytics.dilemmas(paramsForTradeoff, launchTradeOff);
     });
 
     socket.on('personality_insights', function(message) {
@@ -125,16 +156,13 @@ io.sockets.on('connection', function(socket) {
             maxRetrieve: 4,
             text: message
         };
-        alchemy_language.keywords(parameters, function (err, response) {
-            if (err)
-            {
-              console.log('error:', err);
-              socket.emit('reponse_alchemy_language', err );
-            }
-            else
-            {
-              console.log(JSON.stringify(response, null, 2));
-              socket.emit('reponse_alchemy_language', JSON.stringify(response, null, 2) );
+        alchemy_language.keywords(parameters, function(err, response) {
+            if (err) {
+                console.log('error:', err);
+                socket.emit('reponse_alchemy_language', err);
+            } else {
+                console.log(JSON.stringify(response, null, 2));
+                socket.emit('reponse_alchemy_language', JSON.stringify(response, null, 2));
             }
         })
     });
