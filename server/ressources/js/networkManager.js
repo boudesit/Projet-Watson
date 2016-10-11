@@ -10,6 +10,16 @@ $('#watson').click(function() {
     return false;
 })
 
+socket.on('reponse_alchemy_language', function(data) {
+    alert('alchemy_language : ' + data);
+})
+
+$('#watson2').click(function() {
+    console.log("submit as clicked with value " + $('textarea#message2').val());
+    socket.emit('alchemy_language', $('textarea#message2').val());
+    return false;
+})
+
 function personality_insights(text) {
     var socket = io.connect('http://localhost:8080');
     console.log("personality_insights methode text : " + text+'-------'+response);
