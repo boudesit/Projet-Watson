@@ -9,6 +9,7 @@ function HUD(game) {
 	this.go = null;
 	this.cv = null;
 	this.team = null;
+	this.estimation = null;
 };
 
 var HUDTab = new Array();
@@ -24,8 +25,8 @@ HUD.prototype.create = function create() {
   this.duration.create();
 	this.duration.setDuration(this.chooseDuration());
 
-	this.estimation = new estimation(this.game);
-	this.estimation.create();
+	//this.estimation = new estimation(this.game);
+	//this.estimation.create();
 
 	this.need = new need(this.game);
 	this.need.create();
@@ -45,7 +46,7 @@ HUD.prototype.update = function update() {
   this.money.update();
   this.duration.update();
 	this.need.update();
-	this.estimation.update();
+	//this.estimation.update();
 	this.go.update();
 	this.cv.update();
 	this.team.update();
