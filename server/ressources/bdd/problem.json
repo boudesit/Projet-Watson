@@ -27,7 +27,14 @@
         "C",
         "SQL",
         "COBOL"
-      ]
+      ],
+      "goal": "min",
+        "preference": [
+          "Java",
+          "C",
+          "COBOL",
+          "SQL"
+        ]
     }
   ],
   "options": [
@@ -44,7 +51,7 @@
       "key": "2",
       "name": "Perso 2",
       "values": {
-        "name": "toto",
+        "name": "titi",
         "LvlSkill": 70,
         "skill": "Java"
       }
@@ -53,9 +60,18 @@
       "key": "3",
       "name": "Perso 3",
       "values": {
-        "name": "toto",
+        "name": "tata",
         "LvlSkill": 65,
         "skill": "Java"
+      }
+    },
+    {
+      "key": "4",
+      "name": "Perso 4",
+      "values": {
+        "name": "tutu",
+        "LvlSkill": 55,
+        "skill": "C"
       }
     }
   ]

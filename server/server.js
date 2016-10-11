@@ -28,6 +28,37 @@ var tradeoff_analytics = watson.tradeoff_analytics({
     version: 'v1'
 });
 
+var launchTradeOff = function (error, resolution) {
+        if (error) {
+            console.log('error:', error);
+        } else {
+            console.log(JSON.stringify(resolution, null, 2));
+            var test = JSON.parse(JSON.stringify(resolution, null, 2));
+            console.log("result =" + test);
+            for (var prop in test) {
+                console.log(prop + "---" + test[prop]);
+                if (prop === 'resolution') {
+                    for (var prop2 in test[prop]) {
+                        console.log("in val : " + prop2 + "--" + test[prop][prop2][1].status);
+                        console.log(" val = " + test[prop][prop2]);
+                        var newArrayObject = [];
+                        for (var i = 0; i < test[prop][prop2].length; i++) {
+                            if (test[prop][prop2][i].status != "FRONT") {
+                                newArrayObject.push(test[prop][prop2][i]);
+                            }
+                            console.log("in loop" + test[prop][prop2][i]);
+                        }
+                        console.log(" val2 = " + newArrayObject);
+
+                    };
+
+                }
+            };
+
+
+        }
+    };
+
 var alchemy_language = watson.alchemy_language({
   api_key: '921795eb679fc45fa3b2d7ddfcbea46b41018602'
 })
@@ -56,33 +87,7 @@ var io = require('socket.io').listen(server);
 io.sockets.on('connection', function(socket) {
 
     console.log('Un client se connecte !');
-    tradeoff_analytics.dilemmas(paramsForTradeoff, function(error, resolution) {
-        if (error) {
-            console.log('error:', error);
-        } else {
-            console.log(JSON.stringify(resolution, null, 2));
-            var test = JSON.parse(JSON.stringify(resolution, null, 2));
-            console.log("result =" + test);
-            for (var prop in test) {
-                console.log(prop + "---" + test[prop]);
-                if (prop === 'resolution') {
-                    for (var prop2 in test[prop]) {
-                        console.log(test[prop][prop2]);
-                    };
-
-                }
-            };
-
-            // JSON.parse(JSON.stringify(resolution, null, 2), function(k, v) {
-
-            //     console.log(typeof v);
-            //     console.log("resolution " + k +"--" +v);
-
-            //     console.log(" value "+v[0]);
-            // });
-        }
-    });
-
+tradeoff_analytics.dilemmas(paramsForTradeoff, launchTradeOff);
     socket.on('personality_insights', function(message) {
 
         //c'est pour empecher les fail XSS (injection de codes)
