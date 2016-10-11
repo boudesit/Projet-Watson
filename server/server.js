@@ -59,21 +59,23 @@ var launchTradeOff = function(error, resolution) {
                 };
 
             }
-            console.log("columns array with " + JSON.stringify(columArray, null, 2));
-            console.log("Optiion array with " + JSON.stringify(optionArray, null, 2));
+            
             console.log("index To remove " + indexToRemove);
             console.log("size of  option array " + optionArray.length);
             var arrayToKeep = [];
             for (var i = 0; i < optionArray.length; i++) {
                 console.log(optionArray[i].key);
                 if (optionArray[i].key!=indexToRemove){
-                    console.log("push in to keep"+optionArray[i].length);
                     arrayToKeep.push(optionArray[i]);
-                    console.log("after push "+arrayToKeep);
                 }
             } 
-             console.log("Array to keep with " + JSON.stringify(arrayToKeep, null, 2));
-
+            console.log("columns array with " + JSON.stringify(columArray, null, 2));
+            var col =JSON.stringify(columArray, null, 2);
+            //console.log("Option array with " + JSON.stringify(optionArray, null, 2));
+            console.log("Array to keep with " + JSON.stringify(arrayToKeep, null, 2));
+            var opt = JSON.stringify(arrayToKeep, null, 2);
+            var newJson = "{ \"subject\": \"CV\",\"generate_visualization\": false, \"columns\":"+col+" , \"options\": "+opt+"}";
+            console.log("{ \"subject\": \"CV\",\"generate_visualization\": false, \"columns\":"+col+" , \"options\": "+opt+"}");
 
         };
 
