@@ -28,39 +28,51 @@ var tradeoff_analytics = watson.tradeoff_analytics({
     version: 'v1'
 });
 
-var launchTradeOff = function (error, resolution) {
-        if (error) {
-            console.log('error:', error);
-        } else {
-            console.log(JSON.stringify(resolution, null, 2));
-            var test = JSON.parse(JSON.stringify(resolution, null, 2));
-            console.log("result =" + test);
-            for (var prop in test) {
-                console.log(prop + "---" + test[prop]);
-                if (prop === 'resolution') {
-                    for (var prop2 in test[prop]) {
-                        console.log("in val : " + prop2 + "--" + test[prop][prop2][1].status);
-                        console.log(" val = " + test[prop][prop2]);
-                        var newArrayObject = [];
+var launchTradeOff = function(error, resolution) {
+    if (error) {
+        console.log('error:', error);
+    } else {
+        console.log(JSON.stringify(resolution, null, 2));
+        var test = JSON.parse(JSON.stringify(resolution, null, 2));
+        console.log("result =" + test);
+        for (var prop in test) {
+            console.log(prop + "---" + test[prop]);
+
+            if (prop === 'problem') {
+                for (var prop2 in test[prop]) {
+                    console.log("in val : " + prop2 + "--" + test[prop][prop2][1].status);
+                    if (prop2 === 'options') {
                         for (var i = 0; i < test[prop][prop2].length; i++) {
-                            if (test[prop][prop2][i].status != "FRONT") {
-                                newArrayObject.push(test[prop][prop2][i]);
-                            }
-                            console.log("in loop" + test[prop][prop2][i]);
+                            console.log(JSON.stringify(test[prop][prop2][i],null,2));
                         }
-                        console.log(" val2 = " + newArrayObject);
+                    }
+                };
+            }
 
-                    };
+            if (prop === 'resolution') {
+                for (var prop2 in test[prop]) {
+                    console.log("in val : " + prop2 + "--" + test[prop][prop2][1].status);
+                    console.log(" val = " + test[prop][prop2]);
+                    var arrayToKeep = [];
+                    for (var i = 0; i < test[prop][prop2].length; i++) {
+                        if (test[prop][prop2][i].status != "FRONT") {
+                            arrayToKeep.push(test[prop][prop2][i]);
+                        }
+                        console.log("in loop" + test[prop][prop2][i]);
+                    }
+                    console.log(arrayToKeep);
 
-                }
-            };
+                };
+
+            }
+        };
 
 
-        }
-    };
+    }
+};
 
 var alchemy_language = watson.alchemy_language({
-  api_key: '921795eb679fc45fa3b2d7ddfcbea46b41018602'
+    api_key: '921795eb679fc45fa3b2d7ddfcbea46b41018602'
 })
 
 var paramsForTradeoff = require('problem.json');
@@ -87,7 +99,11 @@ var io = require('socket.io').listen(server);
 io.sockets.on('connection', function(socket) {
 
     console.log('Un client se connecte !');
-tradeoff_analytics.dilemmas(paramsForTradeoff, launchTradeOff);
+
+    socket.on('tradeOff', function() {
+        tradeoff_analytics.dilemmas(paramsForTradeoff, launchTradeOff);
+    });
+
     socket.on('personality_insights', function(message) {
 
         //c'est pour empecher les fail XSS (injection de codes)
@@ -130,16 +146,13 @@ tradeoff_analytics.dilemmas(paramsForTradeoff, launchTradeOff);
             maxRetrieve: 4,
             text: message
         };
-        alchemy_language.keywords(parameters, function (err, response) {
-            if (err)
-            {
-              console.log('error:', err);
-              socket.emit('reponse_alchemy_language', err );
-            }
-            else
-            {
-              console.log(JSON.stringify(response, null, 2));
-              socket.emit('reponse_alchemy_language', JSON.stringify(response, null, 2) );
+        alchemy_language.keywords(parameters, function(err, response) {
+            if (err) {
+                console.log('error:', err);
+                socket.emit('reponse_alchemy_language', err);
+            } else {
+                console.log(JSON.stringify(response, null, 2));
+                socket.emit('reponse_alchemy_language', JSON.stringify(response, null, 2));
             }
         })
     });
