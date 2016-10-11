@@ -1,6 +1,6 @@
 var express = require('express');
 var app = express();
-
+var ent = require('ent');
 var bodyParser = require('body-parser');
 var urlencodedParser = bodyParser.urlencoded({
     extended: false
@@ -22,6 +22,70 @@ var personality_insights = watson.personality_insights({
 
 });
 
+var tradeoff_analytics = watson.tradeoff_analytics({
+    username: 'beb36e63-3fb2-4866-a6da-eb3dbb697a47',
+    password: 'OpZkJTpxCVCn',
+    version: 'v1'
+});
+
+var launchTradeOff = function(error, resolution) {
+    if (error) {
+        console.log('error:', error);
+    } else {
+        console.log(JSON.stringify(resolution, null, 2));
+        var test = JSON.parse(JSON.stringify(resolution, null, 2));
+        console.log("result =" + test);
+        var optionArray = [];
+        var columArray = [];
+        var indexToRemove=0;
+        for (var prop in test) {
+            if (prop === 'problem') {
+                for (var prop2 in test[prop]) {
+                    if (prop2 === 'columns') {
+                        columArray = test[prop][prop2];
+                    }
+                    if (prop2 === 'options') {
+                        optionArray = test[prop][prop2];
+                    }
+                };
+            }
+            if (prop === 'resolution') {
+                for (var prop2 in test[prop]) {                   
+                    for (var i = 0; i < test[prop][prop2].length; i++) {
+                        if (test[prop][prop2][i].status === "FRONT") {
+                            indexToRemove=test[prop][prop2][i].solution_ref;
+                        }
+                    }
+                };
+
+            }
+            console.log("columns array with " + JSON.stringify(columArray, null, 2));
+            console.log("Optiion array with " + JSON.stringify(optionArray, null, 2));
+            console.log("index To remove " + indexToRemove);
+            console.log("size of  option array " + optionArray.length);
+            var arrayToKeep = [];
+            for (var i = 0; i < optionArray.length; i++) {
+                console.log(optionArray[i].key);
+                if (optionArray[i].key!=indexToRemove){
+                    console.log("push in to keep"+optionArray[i].length);
+                    arrayToKeep.push(optionArray[i]);
+                    console.log("after push "+arrayToKeep);
+                }
+            } 
+             console.log("Array to keep with " + JSON.stringify(arrayToKeep, null, 2));
+
+
+        };
+
+
+    }
+};
+
+var alchemy_language = watson.alchemy_language({
+    api_key: '921795eb679fc45fa3b2d7ddfcbea46b41018602'
+})
+
+var paramsForTradeoff = require('problem.json');
 
 var sitePath = process.argv[2] || ".";
 
@@ -44,16 +108,17 @@ var io = require('socket.io').listen(server);
 // Quand un client se connecte, on le note dans la console
 io.sockets.on('connection', function(socket) {
 
-    socket.emit('message', 'Vous êtes bien connecté !');
     console.log('Un client se connecte !');
 
-    // Quand le serveur reçoit un signal de type "message" du client
-    socket.on('message', function(message) {
-        console.log('Un client me parle ! Il me dit : ' + message);
+    socket.on('tradeOff', function() {
+        tradeoff_analytics.dilemmas(paramsForTradeoff, launchTradeOff);
     });
 
-
     socket.on('personality_insights', function(message) {
+
+        //c'est pour empecher les fail XSS (injection de codes)
+        message = ent.encode(message);
+
         console.log("Allo Watson c'est quoi ma personality_insights pour se texte : " + message);
         if (message != '') {
 
@@ -63,31 +128,44 @@ io.sockets.on('connection', function(socket) {
                 },
                 function(err, response) {
                     if (err) {
-                        console.log(JSON.stringify(err, null, 2));
-                        /*
-              res.render('index.html', {
-                'personality': JSON.stringify(err, null, 2)
-              })
-
-            */
+                        JSON.parse(JSON.stringify(err, null, 2), function(k, v) {
+                            if (k === 'error') {
+                                console.log(k + " : " + v);
+                                socket.emit('reponse_personality', v);
+                            }
+                        });
                     } else {
                         //console.log(JSON.stringify(response, null, 2));
                         JSON.parse(JSON.stringify(response, null, 2), function(k, v) {
-                          if (k ==='name' || k ==='percentage'){
-                            console.log(k + " : " + v);
+                            if (k === 'name' || k === 'percentage') {
+                                console.log(k + " : " + v);
+                                socket.emit('reponse_personality', v);
                             }
                         });
-                        /*
-                        res.render('index.html', {
-                          'personality': JSON.stringify(response, null, 2)
-                        })
-                        */
+
+
                     }
                 })
         }
-
     });
 
+    socket.on('alchemy_language', function(message) {
+        var parameters = {
+            extract: 'keywords',
+            sentiment: 1,
+            maxRetrieve: 4,
+            text: message
+        };
+        alchemy_language.keywords(parameters, function(err, response) {
+            if (err) {
+                console.log('error:', err);
+                socket.emit('reponse_alchemy_language', err);
+            } else {
+                console.log(JSON.stringify(response, null, 2));
+                socket.emit('reponse_alchemy_language', JSON.stringify(response, null, 2));
+            }
+        })
+    });
 })
 
 

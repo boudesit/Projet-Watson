@@ -1,0 +1,78 @@
+{
+  "subject": "CV",
+  "generate_visualization": false,
+  "columns": [
+    {
+      "key": "name",
+      "type": "text",
+      "is_objective": false,
+      "full_name": "Name"
+    },
+    {
+      "key": "LvlSkill",
+      "type": "numeric",
+      "goal": "max",
+      "is_objective": true,
+      "full_name": "Level Skill",
+      "format": "number:0"
+    },
+    {
+      "key": "skill",
+      "type": "categorical",
+      "goal": "min",
+      "is_objective": true,
+      "full_name": "Skill",
+      "range": [
+        "Java",
+        "C",
+        "SQL",
+        "COBOL"
+      ],
+      "goal": "min",
+        "preference": [
+          "Java",
+          "C",
+          "COBOL",
+          "SQL"
+        ]
+    }
+  ],
+  "options": [
+    {
+      "key": "1",
+      "name": "Perso 1",
+      "values": {
+        "name": "toto",
+        "LvlSkill": 50,
+        "skill": "Java"
+      }
+    },
+    {
+      "key": "2",
+      "name": "Perso 2",
+      "values": {
+        "name": "titi",
+        "LvlSkill": 70,
+        "skill": "Java"
+      }
+    },
+    {
+      "key": "3",
+      "name": "Perso 3",
+      "values": {
+        "name": "tata",
+        "LvlSkill": 65,
+        "skill": "Java"
+      }
+    },
+    {
+      "key": "4",
+      "name": "Perso 4",
+      "values": {
+        "name": "tutu",
+        "LvlSkill": 55,
+        "skill": "C"
+      }
+    }
+  ]
+}
