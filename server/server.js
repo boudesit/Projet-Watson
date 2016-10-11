@@ -27,6 +27,11 @@ var tradeoff_analytics = watson.tradeoff_analytics({
     password: 'OpZkJTpxCVCn',
     version: 'v1'
 });
+
+var alchemy_language = watson.alchemy_language({
+  api_key: '921795eb679fc45fa3b2d7ddfcbea46b41018602'
+})
+
 var paramsForTradeoff = require('problem.json');
 
 var sitePath = process.argv[2] || ".";
@@ -113,6 +118,26 @@ io.sockets.on('connection', function(socket) {
         }
     });
 
+    socket.on('alchemy_language', function(message) {
+        var parameters = {
+            extract: 'keywords',
+            sentiment: 1,
+            maxRetrieve: 4,
+            text: message
+        };
+        alchemy_language.keywords(parameters, function (err, response) {
+            if (err)
+            {
+              console.log('error:', err);
+              socket.emit('reponse_alchemy_language', err );
+            }
+            else
+            {
+              console.log(JSON.stringify(response, null, 2));
+              socket.emit('reponse_alchemy_language', JSON.stringify(response, null, 2) );
+            }
+        })
+    });
 })
 
 
