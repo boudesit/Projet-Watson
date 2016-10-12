@@ -10,6 +10,7 @@ function HUD(game) {
 	this.cv = null;
 	this.team = null;
 	this.estimation = null;
+	this.cv_List = null;
 };
 
 var HUDTab = new Array();
@@ -55,4 +56,12 @@ HUD.prototype.update = function update() {
 
 HUD.prototype.chooseDuration = function chooseDuration() {
 	return Math.floor(Math.random() * (10 - 1 + 1) + 1);
+};
+
+HUD.prototype.set_cv_List = function set_cv_List(cv_List) {
+	 this.cv_List = cv_List;
+};
+
+HUD.prototype.get_cv_List = function get_cv_List() {
+	return this.cv_List;
 };
