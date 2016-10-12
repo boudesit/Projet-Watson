@@ -21,7 +21,7 @@ Duration.prototype.create = function create() {
 };
 
 Duration.prototype.update = function update() {
-  textDuration.setText("duration: " + this.getDuration() + " "+ this.getProjectSize() );
+  textDuration.setText("duration: " + this.getDuration() + "month,  "+ this.getProjectSize() );
 
 };
 
