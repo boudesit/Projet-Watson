@@ -33,7 +33,60 @@ var alchemy_language = watson.alchemy_language({
   api_key: '921795eb679fc45fa3b2d7ddfcbea46b41018602'
 })
 //////////////////////////////////////////////////////////////////////////
+var launchTradeOff = function(error, resolution) {
+    if (error) {
+        console.log('error:', error);
+    } else {
+        console.log(JSON.stringify(resolution, null, 2));
+        var test = JSON.parse(JSON.stringify(resolution, null, 2));
+        console.log("result =" + test);
+        var optionArray = [];
+        var columArray = [];
+        var indexToRemove=0;
+        for (var prop in test) {
+            if (prop === 'problem') {
+                for (var prop2 in test[prop]) {
+                    if (prop2 === 'columns') {
+                        columArray = test[prop][prop2];
+                    }
+                    if (prop2 === 'options') {
+                        optionArray = test[prop][prop2];
+                    }
+                };
+            }
+            if (prop === 'resolution') {
+                for (var prop2 in test[prop]) {                   
+                    for (var i = 0; i < test[prop][prop2].length; i++) {
+                        if (test[prop][prop2][i].status === "FRONT") {
+                            indexToRemove=test[prop][prop2][i].solution_ref;
+                        }
+                    }
+                };
 
+            }
+            
+            console.log("index To remove " + indexToRemove);
+            console.log("size of  option array " + optionArray.length);
+            var arrayToKeep = [];
+            for (var i = 0; i < optionArray.length; i++) {
+                console.log(optionArray[i].key);
+                if (optionArray[i].key!=indexToRemove){
+                    arrayToKeep.push(optionArray[i]);
+                }
+            } 
+            console.log("columns array with " + JSON.stringify(columArray, null, 2));
+            var col =JSON.stringify(columArray, null, 2);
+            //console.log("Option array with " + JSON.stringify(optionArray, null, 2));
+            console.log("Array to keep with " + JSON.stringify(arrayToKeep, null, 2));
+            var opt = JSON.stringify(arrayToKeep, null, 2);
+            var newJson = "{ \"subject\": \"CV\",\"generate_visualization\": false, \"columns\":"+col+" , \"options\": "+opt+"}";
+            console.log("{ \"subject\": \"CV\",\"generate_visualization\": false, \"columns\":"+col+" , \"options\": "+opt+"}");
+
+        };
+
+
+    }
+};
 
 /// Start server ///
 app.use(function(req, res, next) {
@@ -55,31 +108,7 @@ io.sockets.on('connection', function(socket) {
     console.log('Un client se connecte !');
 
     //////////// Tradeoff_analytics //////////////////
-    tradeoff_analytics.dilemmas(paramsForTradeoff, function(error, resolution)
-    {
-        if (error)
-        {
-            console.log('error:', error);
-        }
-        else
-        {
-            console.log(JSON.stringify(resolution, null, 2));
-            var test = JSON.parse(JSON.stringify(resolution, null, 2));
-            console.log("result =" + test);
-
-            for (var prop in test)
-            {
-                console.log(prop + "---" + test[prop]);
-                if (prop === 'resolution')
-                {
-                    for (var prop2 in test[prop])
-                    {
-                        console.log(test[prop][prop2]);
-                    };
-                }
-            };
-        }
-    });
+    tradeoff_analytics.dilemmas(paramsForTradeoff, launchTradeOff);
     //////////////////////////////////////////////////////
 
     //////////// personality_insights ////////////////////
