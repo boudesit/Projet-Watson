@@ -29,7 +29,7 @@ HUD.prototype.create = function create() {
 	//this.estimation = new estimation(this.game);
 	//this.estimation.create();
 
-	this.need = new need(this.game);
+	this.need = new Needs(this.game);
 	this.need.create();
 
 	this.go = new GO(this.game);
