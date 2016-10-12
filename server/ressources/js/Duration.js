@@ -3,6 +3,7 @@ function Duration(game) {
 	this.DurationSprite = null;
   this.textDuration = null;
   this.duration = null;
+	this.projectSize = null;
 };
 
 var DurationTab = new Array();
@@ -20,7 +21,7 @@ Duration.prototype.create = function create() {
 };
 
 Duration.prototype.update = function update() {
-  textDuration.setText("duration: " + this.getDuration());
+  textDuration.setText("duration: " + this.getDuration() + " "+ this.getProjectSize() );
 
 };
 
@@ -31,4 +32,12 @@ Duration.prototype.setDuration  = function setDuration(duration){
 
 Duration.prototype.getDuration = function getDuration() {
   return this.duration;
+};
+
+Duration.prototype.setProjectSize = function setProjectSize(projectSize){
+	this.projectSize = projectSize
+};
+
+Duration.prototype.getProjectSize = function getProjectSize(){
+	return this.projectSize ;
 };
