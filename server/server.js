@@ -22,6 +22,17 @@ var personality_insights = watson.personality_insights({
 
 });
 
+var tradeoff_analytics = watson.tradeoff_analytics({
+    username: 'beb36e63-3fb2-4866-a6da-eb3dbb697a47',
+    password: 'OpZkJTpxCVCn',
+    version: 'v1'
+});
+
+var alchemy_language = watson.alchemy_language({
+  api_key: '921795eb679fc45fa3b2d7ddfcbea46b41018602'
+})
+
+var paramsForTradeoff = require('problem.json');
 
 var sitePath = process.argv[2] || ".";
 
@@ -45,7 +56,32 @@ var io = require('socket.io').listen(server);
 io.sockets.on('connection', function(socket) {
 
     console.log('Un client se connecte !');
+    tradeoff_analytics.dilemmas(paramsForTradeoff, function(error, resolution) {
+        if (error) {
+            console.log('error:', error);
+        } else {
+            console.log(JSON.stringify(resolution, null, 2));
+            var test = JSON.parse(JSON.stringify(resolution, null, 2));
+            console.log("result =" + test);
+            for (var prop in test) {
+                console.log(prop + "---" + test[prop]);
+                if (prop === 'resolution') {
+                    for (var prop2 in test[prop]) {
+                        console.log(test[prop][prop2]);
+                    };
 
+                }
+            };
+
+            // JSON.parse(JSON.stringify(resolution, null, 2), function(k, v) {
+
+            //     console.log(typeof v);
+            //     console.log("resolution " + k +"--" +v);
+
+            //     console.log(" value "+v[0]);
+            // });
+        }
+    });
 
     socket.on('personality_insights', function(message) {
 
@@ -64,7 +100,7 @@ io.sockets.on('connection', function(socket) {
                         JSON.parse(JSON.stringify(err, null, 2), function(k, v) {
                             if (k === 'error') {
                                 console.log(k + " : " + v);
-                                socket.emit('reponse_personality',    v);
+                                socket.emit('reponse_personality', v);
                             }
                         });
                     } else {
@@ -72,7 +108,7 @@ io.sockets.on('connection', function(socket) {
                         JSON.parse(JSON.stringify(response, null, 2), function(k, v) {
                             if (k === 'name' || k === 'percentage') {
                                 console.log(k + " : " + v);
-                                socket.emit('reponse_personality',  v           );
+                                socket.emit('reponse_personality', v);
                             }
                         });
 
@@ -82,6 +118,34 @@ io.sockets.on('connection', function(socket) {
         }
     });
 
+    socket.on('alchemy_language', function(message) {
+        var parameters = {
+            extract: 'keywords',
+            sentiment: 1,
+            maxRetrieve: 4,
+            text: message
+        };
+        alchemy_language.keywords(parameters, function (err, response) {
+            if (err)
+            {
+              console.log('error:', JSON.stringify(err , null, 2));
+              socket.emit('reponse_alchemy_language',JSON.stringify(err , null, 2) );
+            }
+            else
+            {
+              var reponse = 'response : ';
+              JSON.parse(JSON.stringify(response, null, 2), function(k, v) {
+                  if ( k === 'text') {
+                      console.log(k + " : " + v);
+                      reponse = reponse + " " +v+", ";
+
+                  }
+              });
+              socket.emit('reponse_alchemy_language', reponse);
+              
+            }
+        })
+    });
 })
 
 
