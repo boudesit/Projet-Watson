@@ -20,6 +20,11 @@ $('#watson2').click(function() {
     return false;
 })
 
+$('#tradeOff').click(function() {
+    socket.emit('tradeOff', 'NA');
+    return false;
+})
+
 function personality_insights(text) {
     var socket = io.connect('http://localhost:8080');
     console.log("personality_insights methode text : " + text+'-------'+response);
@@ -27,6 +32,20 @@ function personality_insights(text) {
     socket.emit('personality_insights', text)
         .on('reponse_personality', function(data) {
             response.personality_insights = data;
+            console.log("ce que renvoi le serveur" + data);
+        })
+
+    console.log("en dehors du on a : " + socket.data);
+    return socket.data;
+};
+
+function alchemy_language(text) {
+    var socket = io.connect('http://localhost:8080');
+    console.log("alchemy_language text : " + text);
+    response.alchemy_language='waiting';
+    socket.emit('alchemy_language', text)
+        .on('reponse_alchemy_language', function(data) {
+            response.alchemy_language = data;
             console.log("ce que renvoi le serveur" + data);
         })
 
