@@ -20,6 +20,11 @@ $('#watson2').click(function() {
     return false;
 })
 
+$('#tradeOff').click(function() {
+    socket.emit('tradeOff', 'NA');
+    return false;
+})
+
 function personality_insights(text) {
     var socket = io.connect('http://localhost:8080');
     console.log("personality_insights methode text : " + text+'-------'+response);
