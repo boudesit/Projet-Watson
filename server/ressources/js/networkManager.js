@@ -1,23 +1,27 @@
 var socket = io.connect('http://localhost:8080');
 
-socket.on('message', function(message) {
-
-    alert('Le serveur a un message pour vous : ' + message);
-
-})
-
 socket.on('reponse_personality', function(data) {
-    console.log(data);
     alert('votre personalité : ' + data);
-})
-
-$('#poke').click(function() {
-    socket.emit('message', 'Salut serveur, ça va ?');
 })
 
 $('#watson').click(function() {
     console.log("submit as clicked with value " + $('textarea#message').val());
     socket.emit('personality_insights', $('textarea#message').val());
+    return false;
+})
+
+socket.on('reponse_alchemy_language', function(data) {
+    alert('alchemy_language : ' + data);
+})
+
+$('#watson2').click(function() {
+    console.log("submit as clicked with value " + $('textarea#message2').val());
+    socket.emit('alchemy_language', $('textarea#message2').val());
+    return false;
+})
+
+$('#tradeOff').click(function() {
+    socket.emit('tradeOff', 'NA');
     return false;
 })
 
@@ -27,12 +31,24 @@ function personality_insights(text) {
     response.personality_insights='waiting';
     socket.emit('personality_insights', text)
         .on('reponse_personality', function(data) {
-            console.log("ici la valeur de data" + response.personality_insights);
             response.personality_insights = data;
             console.log("ce que renvoi le serveur" + data);
-
         })
 
-    console.log("en dehors du on " + socket.data);
+    console.log("en dehors du on a : " + socket.data);
+    return socket.data;
+};
+
+function alchemy_language(text) {
+    var socket = io.connect('http://localhost:8080');
+    console.log("alchemy_language text : " + text);
+    response.alchemy_language='waiting';
+    socket.emit('alchemy_language', text)
+        .on('reponse_alchemy_language', function(data) {
+            response.alchemy_language = data;
+            console.log("ce que renvoi le serveur" + data);
+        })
+
+    console.log("en dehors du on a : " + socket.data);
     return socket.data;
 };

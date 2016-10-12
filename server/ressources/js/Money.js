@@ -2,6 +2,8 @@ function Money(game) {
 	this.game = game;
 	this.MoneySprite = null;
   this.textMoney = null;
+  this.money = null;
+  this.moneyHasChanged = false;
 };
 
 var MoneyTab = new Array();
@@ -21,4 +23,18 @@ Money.prototype.create = function create() {
 Money.prototype.update = function update() {
   textMoney.setText("text updated");
 
+};
+
+
+Money.prototype.setMoney  = function setMoney(money){
+  this.money = money;
+};
+
+Money.prototype.getMoney = function getMoney(){
+  return this.money;
+};
+
+Money.prototype.moneyHasChanged = function moneyHasChanged(){
+
+  return moneyHasChanged;
 };

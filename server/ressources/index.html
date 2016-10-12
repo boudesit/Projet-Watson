@@ -1,54 +1,49 @@
 <!DOCTYPE html>
-
-
 <html>
+  <head>
 
-<head>
+      <title>Watson</title>
 
-    <title>Watson</title>
+      <style>
+          a {
+              text-decoration: none;
+              color: black;
+          }
+      </style>
 
-    <style>
-        a {
-            text-decoration: none;
-            color: black;
-        }
-    </style>
+  </head>
 
-</head>
-
-
-<body>
-    <iframe src="game.html" scrolling="no" frameborder="0" width="800" height="600"></iframe>
-
-    <h1>Watson</h1>
-
-    <p><input type="button" value="Embêter le serveur" id="poke" /></p>
+  <body>
+      <iframe src="game.html" scrolling="no" frameborder="0" width="800" height="600"></iframe>
 
 
-    <p>
+      <h1>Test Watson</h1>
 
-        <label for="message">Saisissez votre message pour que je puisse analyser votre personnalité :</label><br />
+      <p>
 
-        <textarea name="message" id="message" rows="7" cols="100"></textarea>
+          <label for="message">Saisissez votre message pour que je puisse analyser votre personnalité :</label><br />
 
-        <input id="watson" type="button" value="submit" />
+          <textarea name="message" id="message" rows="7" cols="100"></textarea>
 
-    </p>
+          <input id="watson" type="button" value="submit" />
 
-    <script>
+      </p>
 
-        <% if (typeof personality !== 'undefined') { %>
+      <p>
 
-        <
-        pre > <%= personality %> < /pre>
+          <label for="message2">Saisissez votre message pour que je puisse analyser alchemy language :</label><br />
 
-        <% } %>
+          <textarea name="message2" id="message2" rows="7" cols="100"></textarea>
 
-    </script>
-    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="js/networkManager.js"></script>
+          <input id="watson2" type="button" value="submit" />
 
-  </body>
+      </p>
 
+      <input id="tradeOff" type="button" value="tradeOff Test" />
+
+      <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+      <script src="/socket.io/socket.io.js"></script>
+      <script src="js/networkManager.js"></script>
+
+    </body>
 </html>
