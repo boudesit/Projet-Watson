@@ -27,7 +27,7 @@ theGame.prototype = {
         });
         this.scoreText.fontWeight = "bold";
         this.scoreText.setText("test1");
-        
+
         this.hud = new HUD(this.game);
         this.hud.create();
     },
@@ -35,14 +35,15 @@ theGame.prototype = {
     update: function() {
 
         if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
-          console.log(response.personality_insights);
-          if ( response.personality_insights==="waiting for response"){
+          console.log(response.alchemy_language);
+          if ( response.alchemy_language==="waiting for response"){
             console.log("call watson");
-            personality_insights(this.scoreText.text);
+            alchemy_language(this.scoreText.text);
             }
-            this.scoreText.setText(response.personality_insights);
+            this.scoreText.setText(response.alchemy_language);
         }
-        this.scoreText.setText(response.personality_insights);
+
+        this.scoreText.setText(response.alchemy_language);
         	this.hud.update();
     },
 
