@@ -4,12 +4,13 @@ function HUD(game) {
   this.textHUD = null;
   this.money = null;
   this.duration = null;
-	this.Estimation = null;
-	this.Needs = null;
+	this.estimation = null;
+	this.need = null;
 	this.go = null;
 	this.cv = null;
 	this.team = null;
 	this.estimation = null;
+	this.cv_List = null;
 };
 
 var HUDTab = new Array();
@@ -24,12 +25,11 @@ HUD.prototype.create = function create() {
   this.duration = new Duration(this.game);
   this.duration.create();
 	this.duration.setDuration(this.chooseDuration());
-	this.duration.setProjectSize(this.determinateProjetSize(this.duration.getDuration()));
 
-	this.estimation = new Estimation(this.game);
-	this.estimation.create();
+	//this.estimation = new estimation(this.game);
+	//this.estimation.create();
 
-	this.need = new Needs(this.game);
+	this.need = new need(this.game);
 	this.need.create();
 
 	this.go = new GO(this.game);
@@ -47,7 +47,7 @@ HUD.prototype.update = function update() {
   this.money.update();
   this.duration.update();
 	this.need.update();
-	this.estimation.update();
+	//this.estimation.update();
 	this.go.update();
 	this.cv.update();
 	this.team.update();
@@ -57,18 +57,11 @@ HUD.prototype.update = function update() {
 HUD.prototype.chooseDuration = function chooseDuration() {
 	return Math.floor(Math.random() * (10 - 1 + 1) + 1);
 };
-// < >
 
-HUD.prototype.determinateProjetSize = function determinateProjetSize(duration){
-	var projectSize;
-	if(duration < 3){
-		projectSize = "Small project" ;
-	}
-	else 	if(duration >6){
-			projectSize = "Big project" ;
-		}
-	 else {
-	 		projectSize = "Average project";
-	 }
-	return projectSize;
+HUD.prototype.set_cv_List = function set_cv_List(cv_List) {
+	 this.cv_List = cv_List;
+};
+
+HUD.prototype.get_cv_List = function get_cv_List() {
+	return this.cv_List;
 };
