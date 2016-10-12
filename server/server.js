@@ -21,8 +21,8 @@ var tradeoff_analytics = watson.tradeoff_analytics({
     password: 'OpZkJTpxCVCn',
     version: 'v1'
 });
-var paramsForTradeoff = require('problem.json');
-
+var paramsForTradeoff = require(__dirname+"/"+"bdd"+"/"+"problem.json");
+//includeInThisContext(__dirname+"/models/car.js");
 var personality_insights = watson.personality_insights({
     username: '27d9073a-7cb4-4c31-a348-5fa11b84e094',
     password: 'zgo70NAkPdqh',
@@ -36,14 +36,12 @@ var alchemy_language = watson.alchemy_language({
 
 
 /// Start server ///
-var sitePath = process.argv[2] || ".";
 app.use(function(req, res, next) {
     console.log("Ressource chargé " + req.url);
     next();
 });
-console.log("dossier ressource : " + sitePath);
-console.log("Starting server in: " + __dirname + '/' + sitePath);
-app.use(express.static(__dirname + '/' + sitePath));
+console.log("Starting server in: " + __dirname + '/' + "ressources");
+app.use(express.static(__dirname + '/' + "ressources"));
 ///
 
 
@@ -63,7 +61,7 @@ io.sockets.on('connection', function(socket) {
         {
             console.log('error:', error);
         }
-        else 
+        else
         {
             console.log(JSON.stringify(resolution, null, 2));
             var test = JSON.parse(JSON.stringify(resolution, null, 2));
