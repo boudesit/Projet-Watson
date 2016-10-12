@@ -21,7 +21,7 @@ var tradeoff_analytics = watson.tradeoff_analytics({
     password: 'OpZkJTpxCVCn',
     version: 'v1'
 });
-var paramsForTradeoff = require(__dirname+"/"+"bdd"+"/"+"problem.json");
+var paramsForTradeoff = require(__dirname + "/" + "bdd" + "/" + "problem.json");
 //includeInThisContext(__dirname+"/models/car.js");
 var personality_insights = watson.personality_insights({
     username: '27d9073a-7cb4-4c31-a348-5fa11b84e094',
@@ -30,19 +30,21 @@ var personality_insights = watson.personality_insights({
 });
 
 var alchemy_language = watson.alchemy_language({
-  api_key: '921795eb679fc45fa3b2d7ddfcbea46b41018602'
-})
-//////////////////////////////////////////////////////////////////////////
+        api_key: '921795eb679fc45fa3b2d7ddfcbea46b41018602'
+    })
+    //////////////////////////////////////////////////////////////////////////
 var launchTradeOff = function(error, resolution) {
     if (error) {
         console.log('error:', error);
     } else {
-        console.log(JSON.stringify(resolution, null, 2));
+        // console.log(JSON.stringify(resolution, null, 2));
         var test = JSON.parse(JSON.stringify(resolution, null, 2));
-        console.log("result =" + test);
+        // console.log("result =" + test);
         var optionArray = [];
         var columArray = [];
-        var indexToRemove=0;
+        var indexToRemove = 0;
+        var arrayToKeepFinal = [];
+        //récupération des colums et options pour relancer la demande aprés 
         for (var prop in test) {
             if (prop === 'problem') {
                 for (var prop2 in test[prop]) {
@@ -55,38 +57,52 @@ var launchTradeOff = function(error, resolution) {
                 };
             }
             if (prop === 'resolution') {
-                for (var prop2 in test[prop]) {                   
+                for (var prop2 in test[prop]) {
                     for (var i = 0; i < test[prop][prop2].length; i++) {
                         if (test[prop][prop2][i].status === "FRONT") {
-                            indexToRemove=test[prop][prop2][i].solution_ref;
+                            indexToRemove = test[prop][prop2][i].solution_ref;
                         }
                     }
                 };
 
             }
-            
-            console.log("index To remove " + indexToRemove);
-            console.log("size of  option array " + optionArray.length);
+
             var arrayToKeep = [];
             for (var i = 0; i < optionArray.length; i++) {
-                console.log(optionArray[i].key);
-                if (optionArray[i].key!=indexToRemove){
+                // console.log(optionArray[i].key);
+                if (optionArray[i].key != indexToRemove) {
                     arrayToKeep.push(optionArray[i]);
                 }
-            } 
-            console.log("columns array with " + JSON.stringify(columArray, null, 2));
-            var col =JSON.stringify(columArray, null, 2);
-            //console.log("Option array with " + JSON.stringify(optionArray, null, 2));
-            console.log("Array to keep with " + JSON.stringify(arrayToKeep, null, 2));
-            var opt = JSON.stringify(arrayToKeep, null, 2);
-            var newJson = "{ \"subject\": \"CV\",\"generate_visualization\": false, \"columns\":"+col+" , \"options\": "+opt+"}";
-            console.log("{ \"subject\": \"CV\",\"generate_visualization\": false, \"columns\":"+col+" , \"options\": "+opt+"}");
+            }
+            arrayToKeepFinal = arrayToKeep;
+
 
         };
-
+        console.log("columns array with " + JSON.stringify(columArray, null, 2));
+        var col = JSON.stringify(columArray, null, 2);
+        //console.log("Option array with " + JSON.stringify(optionArray, null, 2));
+        console.log("Array to keep with " + JSON.stringify(arrayToKeepFinal, null, 2));
+        var opt = JSON.stringify(arrayToKeepFinal, null, 2);
+        var newJson = "{ \"subject\": \"CV\",\"generate_visualization\": false, \"columns\":" + col + " , \"options\": " + opt + "}";
+        console.log("{ \"subject\": \"CV\",\"generate_visualization\": false, \"columns\":" + col + " , \"options\": " + opt + "}");
+        if (opt.length===0){
+            return;
+        }
+        else {
+            callTradeof(newJson);
+        }
 
     }
 };
+
+var callTradeof = function(jsonString) {
+    if (jsonString === "NA") {
+        tradeoff_analytics.dilemmas(paramsForTradeoff, launchTradeOff);
+    } else {
+        var tmp = JSON.parse(jsonString);
+        tradeoff_analytics.dilemmas(tmp, launchTradeOff);
+    }
+}
 
 /// Start server ///
 app.use(function(req, res, next) {
@@ -105,90 +121,79 @@ var io = require('socket.io').listen(server);
 
 ///////////////// Socket.IO /////////////////////////
 io.sockets.on('connection', function(socket) {
-    console.log('Un client se connecte !');
+        console.log('Un client se connecte !');
 
-    //////////// Tradeoff_analytics //////////////////
-    tradeoff_analytics.dilemmas(paramsForTradeoff, launchTradeOff);
-    //////////////////////////////////////////////////////
+        //////////// Tradeoff_analytics //////////////////
+        socket.on('tradeOff', callTradeof);
 
-    //////////// personality_insights ////////////////////
-    socket.on('personality_insights', function(message) {
 
-        //c'est pour empecher les fail XSS (injection de codes)
-        message = ent.encode(message);
+        //////////////////////////////////////////////////////
 
-        if (message != '')
-        {
-            personality_insights.profile
-            (
-                {
-                    text: message,
-                    language: 'en'
-                },
-                function(err, response)
-                {
-                    if (err)
-                    {
-                        JSON.parse(JSON.stringify(err, null, 2), function(k, v) {
-                            if (k === 'error')
-                            {
-                                //console.log(k + " : " + v);
-                                socket.emit('reponse_personality', v);
-                            }
-                        });
+        //////////// personality_insights ////////////////////
+        socket.on('personality_insights', function(message) {
+
+            //c'est pour empecher les fail XSS (injection de codes)
+            message = ent.encode(message);
+
+            if (message != '') {
+                personality_insights.profile({
+                        text: message,
+                        language: 'en'
+                    },
+                    function(err, response) {
+                        if (err) {
+                            JSON.parse(JSON.stringify(err, null, 2), function(k, v) {
+                                if (k === 'error') {
+                                    //console.log(k + " : " + v);
+                                    socket.emit('reponse_personality', v);
+                                }
+                            });
+                        } else {
+                            JSON.parse(JSON.stringify(response, null, 2), function(k, v) {
+                                if (k === 'name' || k === 'percentage') {
+                                    //console.log(k + " : " + v);
+                                    socket.emit('reponse_personality', v);
+                                }
+                            });
+                        }
                     }
-                    else
-                    {
-                        JSON.parse(JSON.stringify(response, null, 2), function(k, v) {
-                            if (k === 'name' || k === 'percentage')
-                            {
-                                //console.log(k + " : " + v);
-                                socket.emit('reponse_personality', v);
-                            }
-                        });
-                    }
+                )
+            }
+        });
+        ////////////////////////////////////////////////////////
+
+        /////////// alchemy_language //////////////////////////
+        socket.on('alchemy_language', function(message) {
+
+            //c'est pour empecher les fail XSS (injection de codes)
+            message = ent.encode(message);
+
+            var parameters = {
+                extract: 'keywords',
+                sentiment: 1,
+                maxRetrieve: 4,
+                text: message
+            };
+
+            alchemy_language.keywords(parameters, function(err, response) {
+                if (err) {
+                    //console.log('error:', JSON.stringify(err , null, 2));
+                    socket.emit('reponse_alchemy_language', JSON.stringify(err, null, 2));
+                } else {
+                    var reponse = 'response : ';
+                    JSON.parse(JSON.stringify(response, null, 2), function(k, v) {
+                        if (k === 'text') {
+                            //console.log(k + " : " + v);
+                            reponse = reponse + " " + v + ", ";
+
+                        }
+                    });
+                    socket.emit('reponse_alchemy_language', reponse);
                 }
-            )
-        }
-    });
-    ////////////////////////////////////////////////////////
-
-    /////////// alchemy_language //////////////////////////
-    socket.on('alchemy_language', function(message) {
-
-      //c'est pour empecher les fail XSS (injection de codes)
-      message = ent.encode(message);
-
-        var parameters = {
-            extract: 'keywords',
-            sentiment: 1,
-            maxRetrieve: 4,
-            text: message
-        };
-
-        alchemy_language.keywords(parameters, function (err, response)
-        {
-            if (err)
-            {
-              //console.log('error:', JSON.stringify(err , null, 2));
-              socket.emit('reponse_alchemy_language',JSON.stringify(err , null, 2) );
-            }
-            else
-            {
-              var reponse = 'response : ';
-              JSON.parse(JSON.stringify(response, null, 2), function(k, v) {
-                  if ( k === 'text') {
-                      //console.log(k + " : " + v);
-                      reponse = reponse + " " +v+", ";
-
-                  }
-              });
-              socket.emit('reponse_alchemy_language', reponse);
-            }
-        })
-    });
-    //////////////////////////////////////////////////////////////
-})
-///////////////////////////////////////////////////////////////////////
+            })
+        });
+        //////////////////////////////////////////////////////////////
+    })
+    ///////////////////////////////////////////////////////////////////////
 
 console.log("Server running at: http://localhost:" + port);
