@@ -33,3 +33,17 @@ function personality_insights(text) {
     console.log("en dehors du on a : " + socket.data);
     return socket.data;
 };
+
+function alchemy_language(text) {
+    var socket = io.connect('http://localhost:8080');
+    console.log("alchemy_language text : " + text);
+    response.alchemy_language='waiting';
+    socket.emit('alchemy_language', text)
+        .on('reponse_alchemy_language', function(data) {
+            response.alchemy_language = data;
+            console.log("ce que renvoi le serveur" + data);
+        })
+
+    console.log("en dehors du on a : " + socket.data);
+    return socket.data;
+};

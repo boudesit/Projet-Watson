@@ -128,13 +128,21 @@ io.sockets.on('connection', function(socket) {
         alchemy_language.keywords(parameters, function (err, response) {
             if (err)
             {
-              console.log('error:', err);
-              socket.emit('reponse_alchemy_language', err );
+              console.log('error:', JSON.stringify(err , null, 2));
+              socket.emit('reponse_alchemy_language',JSON.stringify(err , null, 2) );
             }
             else
             {
-              console.log(JSON.stringify(response, null, 2));
-              socket.emit('reponse_alchemy_language', JSON.stringify(response, null, 2) );
+              var reponse = 'response : ';
+              JSON.parse(JSON.stringify(response, null, 2), function(k, v) {
+                  if ( k === 'text') {
+                      console.log(k + " : " + v);
+                      reponse = reponse + " " +v+", ";
+
+                  }
+              });
+              socket.emit('reponse_alchemy_language', reponse);
+              
             }
         })
     });
