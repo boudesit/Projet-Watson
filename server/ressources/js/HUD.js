@@ -26,14 +26,11 @@ HUD.prototype.create = function create() {
 	this.duration.setDuration(this.chooseDuration());
 	this.duration.setProjectSize(this.determinateProjetSize(this.duration.getDuration()));
 
-	//this.estimation = new estimation(this.game);
-	//this.estimation.create();
+	this.estimation = new Estimation(this.game);
+	this.estimation.create();
 
-	this.Estimation = new Estimation(this.game);
-	this.Estimation.create();
-
-	this.Needs = new Needs(this.game);
-	this.Needs.create();
+	this.need = new Needs(this.game);
+	this.need.create();
 
 	this.go = new GO(this.game);
 	this.go.create();
@@ -49,10 +46,8 @@ HUD.prototype.create = function create() {
 HUD.prototype.update = function update() {
   this.money.update();
   this.duration.update();
-	this.Needs.update();
-	this.Estimation.update();
 	this.need.update();
-	//this.estimation.update();
+	this.estimation.update();
 	this.go.update();
 	this.cv.update();
 	this.team.update();
