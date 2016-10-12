@@ -1,4 +1,4 @@
-function need(game) {
+function Needs(game) {
 	this.game = game;
 	this.needSprite = null;
   this.textneed = null;
@@ -6,7 +6,7 @@ function need(game) {
 	this.skills = null;
 };
 
-need.prototype.create = function create() {
+Needs.prototype.create = function create() {
 
 
   var style = { font: "bold 32px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle" };
@@ -22,21 +22,23 @@ need.prototype.create = function create() {
 
 };
 
-need.prototype.update = function update() {
+Needs.prototype.update = function update() {
   text.setText("needs :");
 
 };
 
-need.prototype.getObjectifs = function getObjectifs(){
+Needs.prototype.getObjectifs = function getObjectifs(){
 	return this.objectifs;
 };
-need.prototype.setObjectifs = function setObjectifs( objectifs){
+
+Needs.prototype.setObjectifs = function setObjectifs( objectifs){
 	this.objectifs = objectifs;
 };
 
-need.prototype.getSkills = function getSkills(){
+Needs.prototype.getSkills = function getSkills(){
 	return this.businessSkill;
 };
-need.prototype.setSkills = function setSkills( skills){
+
+Needs.prototype.setSkills = function setSkills( skills){
 	this.skills = skills;
 };
