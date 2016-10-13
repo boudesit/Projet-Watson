@@ -72,23 +72,24 @@ var launchTradeOff = function(error, resolution) {
                 // console.log(optionArray[i].key);
                 if (optionArray[i].key != indexToRemove) {
                     arrayToKeep.push(optionArray[i]);
+                } else {
+                    response.listCv.push(optionArray[i]);
                 }
             }
             arrayToKeepFinal = arrayToKeep;
 
 
         };
-        console.log("columns array with " + JSON.stringify(columArray, null, 2));
+        // console.log("columns array with " + JSON.stringify(columArray, null, 2));
         var col = JSON.stringify(columArray, null, 2);
         //console.log("Option array with " + JSON.stringify(optionArray, null, 2));
-        console.log("Array to keep with " + JSON.stringify(arrayToKeepFinal, null, 2));
+        // console.log("Array to keep with " + JSON.stringify(arrayToKeepFinal, null, 2));
         var opt = JSON.stringify(arrayToKeepFinal, null, 2);
         var newJson = "{ \"subject\": \"CV\",\"generate_visualization\": false, \"columns\":" + col + " , \"options\": " + opt + "}";
-        console.log("{ \"subject\": \"CV\",\"generate_visualization\": false, \"columns\":" + col + " , \"options\": " + opt + "}");
-        if (opt.length===0){
+        //console.log("{ \"subject\": \"CV\",\"generate_visualization\": false, \"columns\":" + col + " , \"options\": " + opt + "}");
+        if (opt.length === 0) {
             return;
-        }
-        else {
+        } else {
             callTradeof(newJson);
         }
 
@@ -96,6 +97,7 @@ var launchTradeOff = function(error, resolution) {
 };
 
 var callTradeof = function(jsonString) {
+    console.log(jsonString);
     if (jsonString === "NA") {
         tradeoff_analytics.dilemmas(paramsForTradeoff, launchTradeOff);
     } else {

@@ -38,6 +38,7 @@ theGame.prototype = {
 
         if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
           console.log(response.alchemy_language);
+          getListCV('NA');
           if ( response.alchemy_language==="waiting for response"){
             console.log("call watson");
             alchemy_language(this.scoreText.text);
