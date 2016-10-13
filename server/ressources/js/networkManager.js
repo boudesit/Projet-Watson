@@ -55,6 +55,10 @@ function alchemy_language(text) {
 
 function getListCV(jsonString) {
     var socket = io.connect('http://localhost:8080');
-    socket.emit('tradeOff', ['jsonString' : 'NA', 'socket' : socket]);
+    var toEmit = {
+        socket: socket,
+        jsonString: "NA"
+    };
+    socket.emit('tradeOff', toEmit);
     return 'NA';
 };
