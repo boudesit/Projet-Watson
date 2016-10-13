@@ -4,6 +4,8 @@ var theGame = function(game) {
     this.spriteBG = null;
     this.white = "#FFFFFF";
     this.hud = null;
+    this.createJson = null;
+
 }
 
 theGame.prototype = {
@@ -32,6 +34,8 @@ theGame.prototype = {
         this.hud.create();
         getListCV('NA');
 
+        this.createJson = new CreateJson(this.game);
+        this.createJson.create();
         //this.hud.set_cv_List(cv_List);
     },
 
