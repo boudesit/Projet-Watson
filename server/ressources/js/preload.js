@@ -14,6 +14,9 @@ preload.prototype = {
     	game.load.audio('gameSound', 'assets/sound/music_game_1644.mp3');
     	game.load.audio('introSound', 'assets/sound/music_title_1613.mp3');
     	game.load.audio('loseSound', 'assets/sound/gameover_2321.mp3');
+
+			//sprite
+			game.load.image('profilPicture', 'assets/img/profil.png');
 	},
 
 	create: function(){
