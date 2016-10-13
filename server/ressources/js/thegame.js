@@ -4,6 +4,7 @@ var theGame = function(game) {
     this.spriteBG = null;
     this.white = "#FFFFFF";
 	  this.hud = null;
+    this.createJson = null;
 }
 
 theGame.prototype = {
@@ -30,12 +31,17 @@ theGame.prototype = {
 
         this.hud = new HUD(this.game);
         this.hud.create();
+
+        this.createJson = new CreateJson(this.game);
+        this.createJson.create();
+        //this.hud.set_cv_List(cv_List);
     },
 
     update: function() {
 
         if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
           console.log(response.alchemy_language);
+          getListCV('NA');
           if ( response.alchemy_language==="waiting for response"){
             console.log("call watson");
             alchemy_language(this.scoreText.text);
