@@ -20,11 +20,6 @@ $('#watson2').click(function() {
     return false;
 })
 
-$('#tradeOff').click(function() {
-    socket.emit('tradeOff', 'NA');
-    return false;
-})
-
 function personality_insights(text) {
     var socket = io.connect('http://localhost:8080');
     console.log("personality_insights methode text : " + text + '-------' + response);
@@ -55,10 +50,14 @@ function alchemy_language(text) {
 
 function getListCV(jsonString) {
     var socket = io.connect('http://localhost:8080');
-    var toEmit = {
-        socket: socket,
-        jsonString: "NA"
-    };
-    socket.emit('tradeOff', toEmit);
+    socket.emit('tradeOff', jsonString);
     return 'NA';
+};
+
+function retrieveInfo() {
+    var socket = io.connect('http://localhost:8080');
+    socket.emit('retrieveListCV', 'NA').on('catchListCV',function(listCv){
+        response.listCv=listCv;
+    });
+    return  response.listCv;
 };
