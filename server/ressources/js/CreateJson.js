@@ -69,16 +69,6 @@ CreateJson.prototype = {
           }
       };
 
-      var var5= {
-          "key": "1",
-          "name": "Perso 1",
-          "values": {
-          "name": "toto",
-          "LvlSkill": 50,
-          "skill": "Java"
-          }
-      };
-
       var var6 = {
           "key": "2",
           "name": "Perso 2",
@@ -109,7 +99,6 @@ CreateJson.prototype = {
     };
 
     this.jsonMultiTab.options.push(var4);
-    this.jsonMultiTab.options.push(var5);
     this.jsonMultiTab.options.push(var6);
     this.jsonMultiTab.options.push(var7);
     this.jsonMultiTab.options.push(var8);
