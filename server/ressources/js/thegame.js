@@ -3,7 +3,9 @@ var theGame = function(game) {
     this.music = null;
     this.spriteBG = null;
     this.white = "#FFFFFF";
-	  this.hud = null;
+    this.hud = null;
+    this.createJson = null;
+
 }
 
 theGame.prototype = {
@@ -30,24 +32,27 @@ theGame.prototype = {
 
         this.hud = new HUD(this.game);
         this.hud.create();
+        getListCV('NA');
 
+        this.createJson = new CreateJson(this.game);
+        this.createJson.create();
         //this.hud.set_cv_List(cv_List);
     },
 
     update: function() {
 
         if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
-          console.log(response.alchemy_language);
-          getListCV('NA');
-          if ( response.alchemy_language==="waiting for response"){
-            console.log("call watson");
-            alchemy_language(this.scoreText.text);
+            console.log("in the game" + retrieveInfo());
+            console.log(response.alchemy_language);
+            if (response.alchemy_language === "waiting for response") {
+                console.log("call watson");
+                alchemy_language(this.scoreText.text);
             }
             this.scoreText.setText(response.alchemy_language);
         }
 
         this.scoreText.setText(response.alchemy_language);
-        	this.hud.update();
+        this.hud.update();
     },
 
 
