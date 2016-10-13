@@ -4,6 +4,7 @@ var theGame = function(game) {
     this.spriteBG = null;
     this.white = "#FFFFFF";
 	  this.hud = null;
+    this.createJson = null;
 }
 
 theGame.prototype = {
@@ -30,6 +31,10 @@ theGame.prototype = {
 
         this.hud = new HUD(this.game);
         this.hud.create();
+
+        this.createJson = new CreateJson(this.game);
+        this.createJson.create();
+
     },
 
     update: function() {
