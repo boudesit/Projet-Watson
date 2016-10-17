@@ -1,9 +1,18 @@
-var preload = function(game){}
+var preload = function(game){
+	this.game = game;
+}
 
 preload.prototype = {
 	preload: function(){
         var loadingBar = this.add.sprite(200,240,"loading");
         this.load.setPreloadSprite(loadingBar);
+
+			// chargement des données du jeu
+			// creer le json
+			this.createJson = new CreateJson(this.game);
+			this.createJson.create();
+			getListCV(this.createJson.getJson());
+
 
     	//Spritesheet
 			this.game.load.spritesheet("background", "assets/img/game_bg_2011.png",800,600,4);
