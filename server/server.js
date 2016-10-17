@@ -15,6 +15,8 @@ var watson = require('watson-developer-cloud');
 var host = process.env.VCAP_APP_HOST || process.env.HOST || 'localhost';
 var port = process.env.VCAP_APP_PORT || process.env.PORT || 8080;
 
+
+var listOfCV = [];
 // Watson api keys
 var tradeoff_analytics = watson.tradeoff_analytics({
     username: 'beb36e63-3fb2-4866-a6da-eb3dbb697a47',
@@ -72,23 +74,26 @@ var launchTradeOff = function(error, resolution) {
                 // console.log(optionArray[i].key);
                 if (optionArray[i].key != indexToRemove) {
                     arrayToKeep.push(optionArray[i]);
+                } else {
+                    console.log(optionArray[i]);
+                    listOfCV.push(optionArray[i]);
                 }
             }
             arrayToKeepFinal = arrayToKeep;
 
 
         };
-        console.log("columns array with " + JSON.stringify(columArray, null, 2));
+        // console.log("columns array with " + JSON.stringify(columArray, null, 2));
         var col = JSON.stringify(columArray, null, 2);
         //console.log("Option array with " + JSON.stringify(optionArray, null, 2));
-        console.log("Array to keep with " + JSON.stringify(arrayToKeepFinal, null, 2));
+        // console.log("Array to keep with " + JSON.stringify(arrayToKeepFinal, null, 2));
         var opt = JSON.stringify(arrayToKeepFinal, null, 2);
         var newJson = "{ \"subject\": \"CV\",\"generate_visualization\": false, \"columns\":" + col + " , \"options\": " + opt + "}";
-        console.log("{ \"subject\": \"CV\",\"generate_visualization\": false, \"columns\":" + col + " , \"options\": " + opt + "}");
-        if (opt.length===0){
+        //console.log("{ \"subject\": \"CV\",\"generate_visualization\": false, \"columns\":" + col + " , \"options\": " + opt + "}");
+        console.log(arrayToKeepFinal.length);
+        if (arrayToKeepFinal.length === 0) {
             return;
-        }
-        else {
+        } else {
             callTradeof(newJson);
         }
 
@@ -96,6 +101,7 @@ var launchTradeOff = function(error, resolution) {
 };
 
 var callTradeof = function(jsonString) {
+    console.log(jsonString);
     if (jsonString === "NA") {
         tradeoff_analytics.dilemmas(paramsForTradeoff, launchTradeOff);
     } else {
@@ -125,7 +131,10 @@ io.sockets.on('connection', function(socket) {
 
         //////////// Tradeoff_analytics //////////////////
         socket.on('tradeOff', callTradeof);
-
+        socket.on('retrieveListCV',function(){
+            console.log("in retrieve");
+            socket.emit('catchListCV',listOfCV)
+        });
 
         //////////////////////////////////////////////////////
 
