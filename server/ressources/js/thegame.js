@@ -30,12 +30,13 @@ theGame.prototype = {
         this.scoreText.fontWeight = "bold";
         this.scoreText.setText("test1");
 
-        this.hud = new HUD(this.game);
-        this.hud.create();
-        getListCV('NA');
-
         this.createJson = new CreateJson(this.game);
         this.createJson.create();
+
+        this.hud = new HUD(this.game);
+        this.hud.create();
+        getListCV(this.createJson.getJson());
+
         //this.hud.set_cv_List(cv_List);
     },
 
