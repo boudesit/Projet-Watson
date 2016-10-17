@@ -26,6 +26,10 @@ preload.prototype = {
 
 			//sprite
 			game.load.image('profilPicture', 'assets/img/profil.png');
+
+			//button
+			game.load.image('OKButton', 'assets/img/blue_pill.png');
+			game.load.image('KOButton', 'assets/img/red_pill.png');
 	},
 
 	create: function(){
