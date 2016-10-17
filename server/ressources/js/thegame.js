@@ -3,7 +3,9 @@ var theGame = function(game) {
     this.music = null;
     this.spriteBG = null;
     this.white = "#FFFFFF";
-	  this.hud = null;
+    this.hud = null;
+    this.createJson = null;
+    this.cv_List = null;
 }
 
 theGame.prototype = {
@@ -28,25 +30,38 @@ theGame.prototype = {
         this.scoreText.fontWeight = "bold";
         this.scoreText.setText("test1");
 
+
         this.hud = new HUD(this.game);
         this.hud.create();
+
 
         //this.hud.set_cv_List(cv_List);
     },
 
     update: function() {
 
+      if(this.cv_List === null || this.cv_List.length === 0 ){
+        this.cv_List = retrieveInfo();
+        if(this.cv_List  != null){
+          //appel au HUD
+        }
+        console.log("yo : "+this.cv_List);
+      }
+
+
         if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
-          console.log(response.alchemy_language);
-          if ( response.alchemy_language==="waiting for response"){
-            console.log("call watson");
-            alchemy_language(this.scoreText.text);
+            //console.log("in the game" + retrieveInfo());
+
+            console.log(response.alchemy_language);
+            if (response.alchemy_language === "waiting for response") {
+                console.log("call watson");
+                alchemy_language(this.scoreText.text);
             }
             this.scoreText.setText(response.alchemy_language);
         }
 
         this.scoreText.setText(response.alchemy_language);
-        	this.hud.update();
+        this.hud.update();
     },
 
 
