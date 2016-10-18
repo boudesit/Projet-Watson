@@ -40,13 +40,21 @@ theGame.prototype = {
 
     update: function() {
 
-      if(this.cv_List === null || this.cv_List.length === 0 ){
-        this.cv_List = retrieveInfo();
-        if(this.cv_List  != null){
-          //appel au HUD
+        if (this.cv_List === null || this.cv_List.length === 0) {
+            this.cv_List = retrieveInfo();
+            if (this.cv_List != null || this.cv_List === 'undefined') {
+                if (this.cv_List.length != 0) {
+                    console.log(this.cv_List[0]);
+                    for (var i = 0 ; i < this.cv_List.length ; i++) {
+                        this.hud.CVList.push(new CV(this.game, this.cv_List[i].name, "competence2", "hobby2", "personalite2", "2K", this.cv_List[i].values.skill));
+                    }
+                }
+                //appel au HUD
+                //this.hud.CVList=[];
+
+            }
+            console.log("yo : " + this.cv_List);
         }
-        console.log("yo : "+this.cv_List);
-      }
 
 
         if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
