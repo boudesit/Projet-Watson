@@ -22,7 +22,14 @@ Team.prototype.update = function update() {
 
 	var text = "Team :\n";
 	for (var i = 0; i < teamCVs.length; i++) {
-		text+="- "+array[i].nom+" "+array[i].poste;
+		text+="- "+teamCVs[i].getNom()+" "+teamCVs[i].getPoste()+"\n";
 	}
   textTeam.setText(text);
 };
+
+Team.prototype.getTeamCVs = function update() {
+	return teamCVs;
+};
+
+//Team.prototype.update = function update() {
+//};
