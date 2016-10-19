@@ -51,14 +51,19 @@ Information.prototype = {
 		this.jsonMultiTab.character.push(var2);
 		this.jsonMultiTab.character.push(var3);
 		this.jsonMultiTab.character.push(var4);
-		console.log(JSON.stringify(this.jsonMultiTab));
+		// console.log(JSON.stringify(this.jsonMultiTab));
 		for (var prop in this.jsonMultiTab) {
-			console.log(prop);
+			// console.log(prop);
 			for (var i = 0; i < this.jsonMultiTab[prop].length; i++) {
-				console.log(this.jsonMultiTab[prop][i][i + 1]);
+				// console.log(this.jsonMultiTab[prop][i][i + 1]);
 				this.characterLoaded.push(this.jsonMultiTab[prop][i][i + 1]);
 			}
 
 		}
+	},
+
+		getInformationByKey : function(key) {
+		console.log("yooooooohoooooooo"+this.characterLoaded[key-1]);
+		return this.characterLoaded[key-1];
 	}
 }
