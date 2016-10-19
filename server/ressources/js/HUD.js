@@ -10,12 +10,16 @@ function HUD(game) {
 	this.cv = null;
 	this.team = null;
 	this.estimation = null;
-	this.cv_List = null;
+	this.decisionButtons = null;
+	this.CVList = new Array();
+	this.currentCV = null
 };
 
 var HUDTab = new Array();
 var HUDTabShot = new Array();
 
+var CVList = new Array();
+var currentCV;
 
 HUD.prototype.create = function create() {
 
@@ -35,12 +39,21 @@ HUD.prototype.create = function create() {
 	this.go = new GO(this.game);
 	this.go.create();
 
-	this.cv = new CV(this.game);
-	this.cv.create();
+	this.CVList.push(new CV(this.game, "Riri", "competence1", "hobby1", "personalite1", "1K", "poste1"));
+	this.CVList.push(new CV(this.game, "Fifi", "competence2", "hobby2", "personalite2", "0.9K", "poste2"));
+	this.CVList.push(new CV(this.game, "Loulou", "competence3", "hobby3", "personalite3", "1.2K", "poste3"));
+	this.CVList.push(new CV(this.game, "Donald", "competence4", "hobby4", "personalite4", "0.5K", "poste4"));
+	this.CVList.push(new CV(this.game, "Picsou", "competence5", "hobby5", "personalite4", "1000K", "poste5"));
+
+	this.currentCV = this.CVList[0];
+	this.currentCV.create();
 
 	this.team = new Team(this.game);
 	this.team.create();
 
+
+	this.decisionButtons = new DecisionButtons(this.game);
+	this.decisionButtons.create();
 };
 
 HUD.prototype.update = function update() {
@@ -49,8 +62,29 @@ HUD.prototype.update = function update() {
 	this.need.update();
 	//this.estimation.update();
 	this.go.update();
-	this.cv.update();
-	this.team.update();
+	if(this.decisionButtons.isClickOK() && this.CVList.length > 0){
+		this.team.getTeamCVs().push(this.currentCV);
+		this.team.update();
+		this.currentCV.destroy();
+
+		this.CVList.shift();
+		if(this.CVList.length > 0){
+			this.currentCV = this.CVList[0];
+			this.currentCV.create();
+			this.decisionButtons.relayoutButtons();
+		}
+	}
+	if(this.decisionButtons.isClickKO() && this.CVList.length > 0){
+		this.currentCV.destroy();
+
+		this.CVList.shift();
+		if(this.CVList.length > 0){
+			this.currentCV = this.CVList[0];
+			this.currentCV.create();
+			this.decisionButtons.relayoutButtons();
+		}
+	}
+	this.decisionButtons.razButtons();
 };
 
 
