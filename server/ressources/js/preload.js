@@ -6,7 +6,7 @@ preload.prototype = {
 	preload: function(){
         var loadingBar = this.add.sprite(200,240,"loading");
         this.load.setPreloadSprite(loadingBar);
-
+        	
 			// chargement des données du jeu
 			// creer le json
 			this.createJson = new CreateJson(this.game);

@@ -101,7 +101,7 @@ var launchTradeOff = function(error, resolution) {
 };
 
 var callTradeof = function(jsonString) {
-    console.log(jsonString);
+    //console.log(jsonString);
     if (jsonString === "NA") {
         tradeoff_analytics.dilemmas(paramsForTradeoff, launchTradeOff);
     } else {
@@ -128,12 +128,12 @@ var io = require('socket.io').listen(server);
 ///////////////// Socket.IO /////////////////////////
 io.sockets.on('connection', function(socket) {
         console.log('Un client se connecte !');
-
         //////////// Tradeoff_analytics //////////////////
         socket.on('tradeOff', callTradeof);
-        socket.on('retrieveListCV',function(){
+        socket.on('retrieveListCV', function() {
             console.log("in retrieve");
-            socket.emit('catchListCV',listOfCV)
+            socket.emit('catchListCV', listOfCV);
+
         });
 
         //////////////////////////////////////////////////////
