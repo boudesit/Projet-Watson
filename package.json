@@ -3,14 +3,19 @@
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
-		"start": "node app.js"
+		"start": "node server.js"
 	},
 	"dependencies": {
-		"express": "4.13.x",
-		"cfenv": "1.0.x"
+		"express": "4.14.0",
+		"cfenv": "1.0.x",
+		"ent": "2.2.0",
+		"body-parser": "1.15.2",
+		"ejs": "2.5.2",
+		"socket.io": "1.5.0",
+		"watson-developer-cloud": "2.4.6"
 	},
 	"repository": {},
 	"engines": {
 		"node": "4.x"
-	} 
+	}
 }
