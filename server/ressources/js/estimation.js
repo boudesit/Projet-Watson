@@ -1,13 +1,13 @@
-function estimation(game) {
+function Estimation(game) {
 	this.game = game;
 	this.estimationSprite = null;
   this.textestimation = null;
 	this.numestimation = null;
 	this.booleanestimation = null;
-},
+};
 
 
-estimation.prototype.create = function create() {
+Estimation.prototype.create = function create() {
 
 
   var style = { font: "bold 32px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle" };
@@ -21,41 +21,41 @@ estimation.prototype.create = function create() {
 
 };
 
-estimation.prototype.update = function update() {
+Estimation.prototype.update = function update() {
   text.setText("estimation :");
 
 };
 
 
-estimation.prototype.getEstimation = function getEstimation() {
-        return this;
+Estimation.prototype.getEstimation = function getEstimation() {
+	return this;
 };
 
-    estimation.prototype.setEstimation =function setEstimation(textestimation, numestimation) {
-      this.textestimation = textestimation;
-      this.numestimation = numestimation;
-    };
+Estimation.prototype.setEstimation =function setEstimation(textestimation, numestimation) {
+	this.textestimation = textestimation;
+  this.numestimation = numestimation;
+};
 
-		estimation.prototype.getTextestimation = function getTextestimation() {
-		       return this.textestimation;
-		};
-	  estimation.prototype.setTextestimation =function setTextestimation(textestimation) {
-		       this.textestimation = textestimation;
-	  };
+Estimation.prototype.getTextestimation = function getTextestimation() {
+	return this.textestimation;
+};
 
+Estimation.prototype.setTextestimation =function setTextestimation(textestimation) {
+	this.textestimation = textestimation;
+};
 
-		estimation.prototype.getNumestimation = function getNumestimation() {
-				   return this.numestimation;
-		};
-		estimation.prototype.setNumestimation =function setNumestimation(numestimation) {
-				   this.numestimation = numestimation;
-		};
+Estimation.prototype.getNumestimation = function getNumestimation() {
+	return this.numestimation;
+};
 
-		estimation.prototype.getBooleanestimation = function getBooleanestimation() {
-					 return this.booleanestimation;
-		};
-		estimation.prototype.setBooleanestimation =function setBooleanestimation(booleanestimation) {
-					 this.booleanestimation = booleanestimation;
-		};
+Estimation.prototype.setNumestimation =function setNumestimation(numestimation) {
+	this.numestimation = numestimation;
+};
 
-		booleanestimation
+Estimation.prototype.getBooleanestimation = function getBooleanestimation() {
+ return this.booleanestimation;
+};
+
+Estimation.prototype.setBooleanestimation =function setBooleanestimation(booleanestimation) {
+	this.booleanestimation = booleanestimation;
+};

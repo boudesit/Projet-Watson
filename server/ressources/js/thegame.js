@@ -3,7 +3,9 @@ var theGame = function(game) {
     this.music = null;
     this.spriteBG = null;
     this.white = "#FFFFFF";
-	  this.hud = null;
+    this.hud = null;
+    this.createJson = null;
+    this.cv_List = null;
 }
 
 theGame.prototype = {
@@ -27,23 +29,51 @@ theGame.prototype = {
         });
         this.scoreText.fontWeight = "bold";
         this.scoreText.setText("test1");
-        
+
+
         this.hud = new HUD(this.game);
         this.hud.create();
+
+        this.information= new Information();
+        this.information.create();
+        //this.information.getInformationByKey();
+        //this.hud.set_cv_List(cv_List);
     },
 
     update: function() {
 
-        if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
-          console.log(response.personality_insights);
-          if ( response.personality_insights==="waiting for response"){
-            console.log("call watson");
-            personality_insights(this.scoreText.text);
+        if (this.cv_List === null || this.cv_List.length === 0) {
+            this.cv_List = retrieveInfo();
+            if (this.cv_List != null || this.cv_List === 'undefined') {
+                if (this.cv_List.length != 0) {
+                    console.log(this.cv_List[0]);
+                    for (var i = 0 ; i < this.cv_List.length ; i++) {
+                        this.hud.CVList.push(new CV(this.game, this.cv_List[i].name, "competence2", "hobby2", "personalite2", "2K", this.cv_List[i].values.skill));
+                        this.information.getInformationByKey(1);
+                        console.log(this.information.getInformationByKey(this.cv_List[i].key));
+                    }
+                }
+                //appel au HUD
+                //this.hud.CVList=[];
+
             }
-            this.scoreText.setText(response.personality_insights);
+            console.log("yo : " + this.cv_List);
         }
-        this.scoreText.setText(response.personality_insights);
-        	this.hud.update();
+
+
+        if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
+            //console.log("in the game" + retrieveInfo());
+
+            console.log(response.alchemy_language);
+            if (response.alchemy_language === "waiting for response") {
+                console.log("call watson");
+                alchemy_language(this.scoreText.text);
+            }
+            this.scoreText.setText(response.alchemy_language);
+        }
+
+        this.scoreText.setText(response.alchemy_language);
+        this.hud.update();
     },
 
 
