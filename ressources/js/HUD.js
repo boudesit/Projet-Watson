@@ -62,12 +62,14 @@ this.projet.update();
 
 			this.team.getTeamCVs().push(this.currentCV);
 			this.team.update();
-			this.currentCV.destroy();
 		}
+		this.currentCV.destroy();
 		this.CVList.shift();
+
 		if(this.CVList.length > 0){
 
 			this.currentCV = this.CVList[0];
+			this.currentCV.destroy();
 			this.currentCV.create();
 			this.decisionButtons.relayoutButtons();
 		}
@@ -79,6 +81,7 @@ this.projet.update();
 		this.CVList.shift();
 		if(this.CVList.length > 0){
 			this.currentCV = this.CVList[0];
+			this.currentCV.destroy();
 			this.currentCV.create();
 			this.decisionButtons.relayoutButtons();
 		}

@@ -7,6 +7,7 @@ function CV(game, nom, competence, hobby, personalite, couts, poste) {
 	this.personalite = personalite;
 	this.couts = couts;
 	this.poste = poste;
+	this.sprite = null;
 };
 
 // un CV est un cadre reprenant une photo, une liste de données
@@ -21,39 +22,41 @@ var personalite;
 var couts;
 var poste;
 
-var CVTab = new Array();
+var CVTab = ['cv','cv2','cv3','cv4','cv'];
 var CVTabShot = new Array();
 
 CV.prototype.create = function create() {
-  var style = { font: "bold 15px Arial", fill: "#000", boundsAlignH: "center", boundsAlignV: "middle" };
-  //  The Text is positioned at 0, 100
+  // var style = { font: "bold 15px Arial", fill: "#000", boundsAlignH: "center", boundsAlignV: "middle" };
+  // //  The Text is positioned at 0, 100
+	//
+	// graphics = game.add.graphics(100, 100);
+	// graphics.beginFill(0xebebe0);
+	// CVLayout = graphics.drawRect(200, 100, 200, 300);
+	// graphics.endFill();
+	//
 
-	graphics = game.add.graphics(100, 100);
-	graphics.beginFill(0xebebe0);
-	CVLayout = graphics.drawRect(200, 100, 200, 300);
-	graphics.endFill();
+	//
+	// profilPicture = game.add.sprite(325, textNom.y+20, 'profilPicture');
+	// profilPicture.scale.setTo(0.3,0.3);
 
-	textNom = game.add.text(325, 210, this.nom, style);
-	textNom.setShadow(3, 3, 'rgba(0,0,0,0.5)', 2);
 
-	profilPicture = game.add.sprite(325, textNom.y+20, 'profilPicture');
-	profilPicture.scale.setTo(0.3,0.3);
+	sprite = game.add.sprite(300, 100, CVTab[this.getRandom()]);
+	sprite.inputEnabled = true;
 
-	textCompetence = game.add.text(310, 380, this.competence, style);
-	textCompetence.setShadow(3, 3, 'rgba(0,0,0,0.5)', 2);
-	textHobby = game.add.text(310, textCompetence.y+20, this.hobby, style);
-	textHobby.setShadow(3, 3, 'rgba(0,0,0,0.5)', 2);
-	textPersonalite = game.add.text(310, textHobby.y+20, this.personalite, style);
-	textPersonalite.setShadow(3, 3, 'rgba(0,0,0,0.5)', 2);
-	textCouts = game.add.text(310, textPersonalite.y+20, this.couts, style);
-	textCouts.setShadow(3, 3, 'rgba(0,0,0,0.5)', 2);
-	textPoste = game.add.text(310, textCouts.y+20, this.poste, style);
-	textPoste.setShadow(3, 3, 'rgba(0,0,0,0.5)', 2);
+	var style = { font: "16px Arial", fill: "#000000", wordWrap: true, wordWrapWidth: sprite.width, align: "center" };
+	var styleNom = { font: "32px Arial", fill: "#000000", wordWrap: true, wordWrapWidth: sprite.width, align: "center" };
+
+
+	textNom = game.add.text(340,130, this.nom, styleNom);
+	textCompetence = game.add.text(340, 190, "Competence: \n" +this.competence, style);
+	textHobby = game.add.text(340, 250, "Hobby: \n" +this.hobby, style);
+	textPersonalite = game.add.text(340, 310,  "Personalité: \n" +this.personalite, style);
+	textCouts = game.add.text(340, 370, "Cout: \n" +this.couts, style);
+	textPoste = game.add.text(340, 430, "Poste: \n" +this.poste, style);
 };
 
-CV.prototype.destroy = function create() {
-	graphics.destroy();
-	profilPicture.destroy();
+CV.prototype.destroy = function destroy() {
+	sprite.destroy();
 	textNom.destroy();
 	textCompetence.destroy();
 	textHobby.destroy();
@@ -68,4 +71,8 @@ CV.prototype.getNom = function update() {
 
 CV.prototype.getPoste = function update() {
 	return this.poste;
+};
+
+CV.prototype.getRandom = function getRandom() {
+	return Math.floor(Math.random() * (5 - 1 + 1) + 1)
 };
