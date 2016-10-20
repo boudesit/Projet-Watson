@@ -14,7 +14,7 @@ Information.prototype = {
 				"personality": "Bad",
 				"value" : 1000,
 				"postes": [
-					"Concepteur Java", "Intégrateur"
+					"Concepteur Java", "Testeur"
 				]
 			}
 		};
@@ -25,7 +25,7 @@ Information.prototype = {
 				"personality": "gentil",
 				"value" : 1500,
 				"postes": [
-					"Concepteur Java", "Concept design"
+					"Concepteur Java"
 				]
 			}
 		};
@@ -47,7 +47,7 @@ Information.prototype = {
 				"personality": "ambianceur",
 				"value" : 3000,
 				"postes": [
-					"Concepteur Java"
+					"Concepteur C"
 				]
 			}
 		};
