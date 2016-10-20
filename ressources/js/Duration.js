@@ -21,7 +21,7 @@ Duration.prototype.create = function create() {
 };
 
 Duration.prototype.update = function update() {
-  textDuration.setText("duration: " + this.getDuration() + "month,  "+ this.getProjectSize() );
+  textDuration.setText("duration: " + this.getDuration() + "month,  "+ this.getMaxPerson() );
 
 };
 
@@ -34,10 +34,10 @@ Duration.prototype.getDuration = function getDuration() {
   return this.duration;
 };
 
-Duration.prototype.setProjectSize = function setProjectSize(projectSize){
-	this.projectSize = projectSize
+Duration.prototype.setMaxPerson = function setMaxPerson(projectSize){
+	this.projectSize = projectSize;
 };
 
-Duration.prototype.getProjectSize = function getProjectSize(){
+Duration.prototype.getMaxPerson = function getMaxPerson(){
 	return this.projectSize ;
 };

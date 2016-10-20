@@ -20,6 +20,8 @@ Projet.prototype.create = function create() {
 
 	this.duration.setDuration(this.chooseDuration());
   this.money.setMoney(this.chooseMoney());
+  this.duration.setMaxPerson(this.maxPerson());
+
 };
 
 Projet.prototype.update = function update() {
@@ -36,5 +38,5 @@ Projet.prototype.chooseMoney = function chooseMoney() {
   return Math.floor(Math.random() * (10000 - 9000 + 1) + 9000) * this.duration.getDuration();
 };
 Projet.prototype.maxPerson = function chooseMoney() {
-  return this.money.getMoney() / 25000;
+  return Math.round(this.money.getMoney() / 25000);
 };
