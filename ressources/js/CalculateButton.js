@@ -10,7 +10,7 @@ var clickCalc = false;
 
 CalculateButton.prototype.create = function create() {
 
-	calcButton = game.add.button(game.world.centerX+200, 510, 'calcButton', actionOnClickGO, this, 2, 1, 0);
+	calcButton = game.add.button(game.world.centerX+200, 480, 'calcButton', actionOnClickGO, this, 2, 1, 0);
 
 };
 

@@ -26,6 +26,14 @@ preload.prototype = {
 		this.game.load.spritesheet("gameover", "assets/img/table.jpg",800,600,1);
 		this.game.load.spritesheet("victory", "assets/img/game_win.jpg",800,600,1);
 
+		this.game.load.spritesheet("cv", "assets/img/cv.png",266,400,1);
+		this.game.load.spritesheet("cv2", "assets/img/cv2.png",266,400,1);
+		this.game.load.spritesheet("cv3", "assets/img/cv3.png",266,400,1);
+		this.game.load.spritesheet("cv4", "assets/img/cv4.png",266,400,1);
+		this.game.load.spritesheet("cv5", "assets/img/cv5.png",266,400,1);
+
+		this.game.load.spritesheet("bloc", "assets/img/bloc-note-carnet-spirale-laiko.png",200,266,1);
+
 		//Sound
 		game.load.audio('gameSound', 'assets/sound/music_game_1644.mp3');
 		game.load.audio('introSound', 'assets/sound/intro_sound.mp3');
@@ -38,9 +46,9 @@ preload.prototype = {
 		game.load.image('profilPicture', 'assets/img/profil.png');
 
 		//button
-		game.load.image('OKButton', 'assets/img/blue_pill.png');
-		game.load.image('KOButton', 'assets/img/red_pill.png');
-		game.load.image('calcButton', 'assets/img/go.png');
+		game.load.image('OKButton', 'assets/img/cochetrue.png');
+		game.load.image('KOButton', 'assets/img/cochefalse.png');
+		game.load.image('calcButton', 'assets/img/go.jpg');
 	},
 
 	create: function() {
