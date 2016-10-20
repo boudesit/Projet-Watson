@@ -20,16 +20,19 @@ preload.prototype = {
 			getListCV(this.createJson.getJson());
 		}
 
-
 		//Spritesheet
-		this.game.load.spritesheet("background", "assets/img/game_bg_2011.png", 800, 600, 4);
-		this.game.load.spritesheet("gametitle", "assets/img/game_start_ss_2021.png", 800, 600, 2);
-		this.game.load.spritesheet("gameover", "assets/img/gameover_ss_2228.png", 800, 600, 2);
+		this.game.load.spritesheet("background", "assets/img/table.jpg",800,600,1);
+		this.game.load.spritesheet("gametitle", "assets/img/game_start.jpg",800,600,1);
+		this.game.load.spritesheet("gameover", "assets/img/table.jpg",800,600,1);
+		this.game.load.spritesheet("victory", "assets/img/game_win.jpg",800,600,1);
 
 		//Sound
 		game.load.audio('gameSound', 'assets/sound/music_game_1644.mp3');
-		game.load.audio('introSound', 'assets/sound/music_title_1613.mp3');
+		game.load.audio('introSound', 'assets/sound/intro_sound.mp3');
 		game.load.audio('loseSound', 'assets/sound/gameover_2321.mp3');
+
+		game.load.audio('OKButtonSound', 'assets/sound/numkey.wav');
+		game.load.audio('KOButtonSound', 'assets/sound/numkey_wrong.wav');
 
 		//sprite
 		game.load.image('profilPicture', 'assets/img/profil.png');

@@ -56,6 +56,10 @@ theGame.prototype = {
             console.log("yo : " + this.cv_List);
         }
 
+        if(this.hud.getIsWin())
+        {
+          this.win();
+        }
 
         // if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
         //     //console.log("in the game" + retrieveInfo());
@@ -73,7 +77,12 @@ theGame.prototype = {
 
 
     lose: function() {
-        this.game.state.start("GameOver");
-    }
+  		//music.pause();
+  		this.game.state.start("GameOver");
+  	},
 
+  	win: function() {
+  		//music.pause();
+  		this.game.state.start("Victory");
+  	}
 }
