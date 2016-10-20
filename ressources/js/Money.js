@@ -21,7 +21,7 @@ Money.prototype.create = function create() {
 };
 
 Money.prototype.update = function update() {
-  textMoney.setText("text updated");
+  textMoney.setText(this.money);
 
 };
 

@@ -12,7 +12,8 @@ function HUD(game) {
 	this.estimation = null;
 	this.decisionButtons = null;
 	this.CVList = new Array();
-	this.currentCV = null
+	this.currentCV = null;
+	this.projet = null;
 };
 
 var HUDTab = new Array();
@@ -22,16 +23,10 @@ var CVList = new Array();
 var currentCV;
 
 HUD.prototype.create = function create() {
-
-  this.money = new Money(this.game);
-  this.money.create();
-
-  this.duration = new Duration(this.game);
-  this.duration.create();
-	this.duration.setDuration(this.chooseDuration());
-
 	//this.estimation = new estimation(this.game);
 	//this.estimation.create();
+	this.projet = new Projet(this.game);
+	this.projet.create();
 
 	this.need = new Needs(this.game);
 	this.need.create();
@@ -57,8 +52,7 @@ HUD.prototype.create = function create() {
 };
 
 HUD.prototype.update = function update() {
-  this.money.update();
-  this.duration.update();
+this.projet.update();
 	this.need.update();
 	//this.estimation.update();
 	this.go.update();
@@ -85,11 +79,6 @@ HUD.prototype.update = function update() {
 		}
 	}
 	this.decisionButtons.razButtons();
-};
-
-
-HUD.prototype.chooseDuration = function chooseDuration() {
-	return Math.floor(Math.random() * (10 - 1 + 1) + 1);
 };
 
 HUD.prototype.set_cv_List = function set_cv_List(cv_List) {
