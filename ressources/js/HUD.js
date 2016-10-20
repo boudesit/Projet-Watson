@@ -57,12 +57,15 @@ this.projet.update();
 	//this.estimation.update();
 	this.go.update();
 	if(this.decisionButtons.isClickOK() && this.CVList.length > 0){
-		this.team.getTeamCVs().push(this.currentCV);
-		this.team.update();
-		this.currentCV.destroy();
+		if(this.team.getTeamCVs().length < Math.round(this.projet.maxPerson())) {
 
+			this.team.getTeamCVs().push(this.currentCV);
+			this.team.update();
+			this.currentCV.destroy();
+		}
 		this.CVList.shift();
 		if(this.CVList.length > 0){
+
 			this.currentCV = this.CVList[0];
 			this.currentCV.create();
 			this.decisionButtons.relayoutButtons();

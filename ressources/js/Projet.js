@@ -35,3 +35,6 @@ Projet.prototype.chooseDuration = function chooseDuration() {
 Projet.prototype.chooseMoney = function chooseMoney() {
   return Math.floor(Math.random() * (10000 - 9000 + 1) + 9000) * this.duration.getDuration();
 };
+Projet.prototype.maxPerson = function chooseMoney() {
+  return this.money.getMoney() / 25000;
+};
