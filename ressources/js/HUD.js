@@ -11,6 +11,7 @@ function HUD(game) {
 	this.team = null;
 	this.estimation = null;
 	this.decisionButtons = null;
+	this.calculateButton=null;
 	this.CVList = new Array();
 	this.currentCV = null;
 	this.projet = null;
@@ -31,9 +32,6 @@ HUD.prototype.create = function create() {
 	this.need = new Needs(this.game);
 	this.need.create();
 
-	this.go = new GO(this.game);
-	this.go.create();
-
 	//this.CVList.push(new CV(this.game, "Riri", "competence1", "hobby1", "personalite1", "1K", "poste1"));
 	// this.CVList.push(new CV(this.game, "Fifi", "competence2", "hobby2", "personalite2", "0.9K", "poste2"));
 	// this.CVList.push(new CV(this.game, "Loulou", "competence3", "hobby3", "personalite3", "1.2K", "poste3"));
@@ -49,13 +47,16 @@ HUD.prototype.create = function create() {
 
 	this.decisionButtons = new DecisionButtons(this.game);
 	this.decisionButtons.create();
+
+	this.calculateButton = new CalculateButton(this.game);
+	this.calculateButton.create();
 };
 
 HUD.prototype.update = function update() {
 this.projet.update();
 	this.need.update();
 	//this.estimation.update();
-	this.go.update();
+	
 	if(this.decisionButtons.isClickOK() && this.CVList.length > 0){
 		if(this.team.getTeamCVs().length < Math.round(this.projet.maxPerson())) {
 
@@ -82,6 +83,12 @@ this.projet.update();
 		}
 	}
 	this.decisionButtons.razButtons();
+
+	if (this.calculateButton.isClickOK()){
+		this.calculateButton.calculate(this.projet);
+		this.calculateButton.relayoutButtons();
+	}
+	this.calculateButton.razButtons();
 };
 
 HUD.prototype.set_cv_List = function set_cv_List(cv_List) {

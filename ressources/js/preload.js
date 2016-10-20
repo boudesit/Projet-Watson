@@ -37,6 +37,7 @@ preload.prototype = {
 		//button
 		game.load.image('OKButton', 'assets/img/blue_pill.png');
 		game.load.image('KOButton', 'assets/img/red_pill.png');
+		game.load.image('calcButton', 'assets/img/go.png');
 	},
 
 	create: function() {
