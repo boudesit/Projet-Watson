@@ -34,7 +34,9 @@ theGame.prototype = {
         this.hud = new HUD(this.game);
         this.hud.create();
 
-
+        this.information= new Information();
+        this.information.create();
+        //this.information.getInformationByKey();
         //this.hud.set_cv_List(cv_List);
     },
 
@@ -47,6 +49,8 @@ theGame.prototype = {
                     console.log(this.cv_List[0]);
                     for (var i = 0 ; i < this.cv_List.length ; i++) {
                         this.hud.CVList.push(new CV(this.game, this.cv_List[i].name, "competence2", "hobby2", "personalite2", "2K", this.cv_List[i].values.skill));
+                        this.information.getInformationByKey(1);
+                        console.log(this.information.getInformationByKey(this.cv_List[i].key));
                     }
                 }
                 //appel au HUD
