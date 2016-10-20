@@ -9,7 +9,7 @@ Information.prototype = {
 		this.jsonMultiTab.character = this.character;
 		var var1 = {
 			"1": {
-				"name": "toto",
+				"name": "Patrick",
 				"hobby": "teletubies",
 				"personality": "Bad",
 				"value" : 1000,
@@ -20,7 +20,7 @@ Information.prototype = {
 		};
 		var var2 = {
 			"2": {
-				"name": "titi",
+				"name": "Michel",
 				"hobby": "petanque",
 				"personality": "gentil",
 				"value" : 1500,
@@ -31,7 +31,7 @@ Information.prototype = {
 		};
 		var var3 = {
 			"3": {
-				"name": "tata",
+				"name": "Marc",
 				"hobby": "oiseau",
 				"personality": "rêveur",
 				"value" : 2000,
@@ -42,7 +42,7 @@ Information.prototype = {
 		};
 		var var4 = {
 			"4": {
-				"name": "tutu",
+				"name": "Justin",
 				"hobby": "poney",
 				"personality": "ambianceur",
 				"value" : 3000,
