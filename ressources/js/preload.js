@@ -38,8 +38,8 @@ preload.prototype = {
 		game.load.image('profilPicture', 'assets/img/profil.png');
 
 		//button
-		game.load.image('OKButton', 'assets/img/blue_pill.png');
-		game.load.image('KOButton', 'assets/img/red_pill.png');
+		game.load.image('OKButton', 'assets/img/cochetrue.png');
+		game.load.image('KOButton', 'assets/img/cochefalse.png');
 		game.load.image('calcButton', 'assets/img/go.png');
 	},
 
