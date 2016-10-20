@@ -48,8 +48,8 @@ theGame.prototype = {
                 if (this.cv_List.length != 0) {
                     console.log(this.cv_List[0]);
                     for (var i = 0 ; i < this.cv_List.length ; i++) {
-                        this.hud.CVList.push(new CV(this.game, this.cv_List[i].name, "competence2", "hobby2", "personalite2", "2K", this.cv_List[i].values.skill));
-                        this.information.getInformationByKey(1);
+                        var info = this.information.getInformationByKey(this.cv_List[i].key);
+                        this.hud.CVList.push(new CV(this.game, this.cv_List[i].name, "competence2", info.hobby, info.personality, "2K", this.cv_List[i].values.skill));
                         console.log(this.information.getInformationByKey(this.cv_List[i].key));
                     }
                 }
