@@ -30,6 +30,8 @@ theGame.prototype = {
 
         this.hud = new HUD(this.game);
         this.hud.create();
+
+        //this.hud.set_cv_List(cv_List);
     },
 
     update: function() {
