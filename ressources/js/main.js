@@ -11,6 +11,7 @@ function create() {
 	game.state.add("GameTitle",gameTitle);
 	game.state.add("TheGame",theGame);
 	game.state.add("GameOver",gameOver);
+	game.state.add("Victory",victory);
 	game.state.start("Boot");
 }
 

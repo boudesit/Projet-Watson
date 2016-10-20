@@ -9,8 +9,8 @@ var clickKO = false;
 
 DecisionButtons.prototype.create = function create() {
 
-	OKButton = game.add.button(game.world.centerX+10, 490, 'OKButton', actionOnClickOK, this, 2, 1, 0);
-	KOButton = game.add.button(game.world.centerX-110, 490, 'KOButton', actionOnClickKO, this, 2, 1, 0);
+	OKButton = game.add.button(game.world.centerX+10, 510, 'OKButton', actionOnClickOK, this, 2, 1, 0);
+	KOButton = game.add.button(game.world.centerX-110, 510, 'KOButton', actionOnClickKO, this, 2, 1, 0);
 };
 
 function actionOnClickOK () {
