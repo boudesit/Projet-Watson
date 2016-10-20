@@ -12,6 +12,7 @@ Information.prototype = {
 				"name": "toto",
 				"hobby": "teletubies",
 				"personality": "Bad",
+				"value" : 1000,
 				"postes": [
 					"Concepteur Java", "Intégrateur"
 				]
@@ -22,6 +23,7 @@ Information.prototype = {
 				"name": "titi",
 				"hobby": "petanque",
 				"personality": "gentil",
+				"value" : 1500,
 				"postes": [
 					"Concepteur Java", "Concept design"
 				]
@@ -32,6 +34,7 @@ Information.prototype = {
 				"name": "tata",
 				"hobby": "oiseau",
 				"personality": "rêveur",
+				"value" : 2000,
 				"postes": [
 					"Testeur", "Concepteur Java"
 				]
@@ -42,8 +45,9 @@ Information.prototype = {
 				"name": "tutu",
 				"hobby": "poney",
 				"personality": "ambianceur",
+				"value" : 3000,
 				"postes": [
-					"Concepteur Java", "Branleur de nouille"
+					"Concepteur Java"
 				]
 			}
 		};

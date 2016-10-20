@@ -39,14 +39,14 @@ HUD.prototype.create = function create() {
 	this.go = new GO(this.game);
 	this.go.create();
 
-	this.CVList.push(new CV(this.game, "Riri", "competence1", "hobby1", "personalite1", "1K", "poste1"));
+	//this.CVList.push(new CV(this.game, "Riri", "competence1", "hobby1", "personalite1", "1K", "poste1"));
 	// this.CVList.push(new CV(this.game, "Fifi", "competence2", "hobby2", "personalite2", "0.9K", "poste2"));
 	// this.CVList.push(new CV(this.game, "Loulou", "competence3", "hobby3", "personalite3", "1.2K", "poste3"));
 	// this.CVList.push(new CV(this.game, "Donald", "competence4", "hobby4", "personalite4", "0.5K", "poste4"));
 	// this.CVList.push(new CV(this.game, "Picsou", "competence5", "hobby5", "personalite4", "1000K", "poste5"));
 
-	this.currentCV = this.CVList[0];
-	this.currentCV.create();
+	//this.currentCV = this.CVList[0];
+	//this.currentCV.create();
 
 	this.team = new Team(this.game);
 	this.team.create();
