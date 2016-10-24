@@ -136,6 +136,10 @@ io.sockets.on('connection', function(socket) {
 
         });
 
+        socket.on("clearList",function(){
+            listOfCV=[];
+        });
+
         //////////////////////////////////////////////////////
 
         //////////// personality_insights ////////////////////
