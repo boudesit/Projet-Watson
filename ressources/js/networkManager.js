@@ -61,3 +61,8 @@ function retrieveInfo() {
     });
     return  response.listCv;
 };
+
+function clearList() {
+    var socket = io.connect('http://localhost:8080');
+    socket.emit('clearList', 'NA');
+};
