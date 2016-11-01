@@ -20,24 +20,35 @@ preload.prototype = {
 			getListCV(this.createJson.getJson());
 		}
 
-
 		//Spritesheet
-		this.game.load.spritesheet("background", "assets/img/game_bg_2011.png", 800, 600, 4);
-		this.game.load.spritesheet("gametitle", "assets/img/game_start_ss_2021.png", 800, 600, 2);
-		this.game.load.spritesheet("gameover", "assets/img/gameover_ss_2228.png", 800, 600, 2);
+		this.game.load.spritesheet("background", "assets/img/table.jpg",800,600,1);
+		this.game.load.spritesheet("gametitle", "assets/img/game_start.jpg",800,600,1);
+		this.game.load.spritesheet("gameover", "assets/img/table.jpg",800,600,1);
+		this.game.load.spritesheet("victory", "assets/img/game_win.jpg",800,600,1);
+
+		this.game.load.spritesheet("cv", "assets/img/cv.png",266,400,1);
+		this.game.load.spritesheet("cv2", "assets/img/cv2.png",266,400,1);
+		this.game.load.spritesheet("cv3", "assets/img/cv3.png",266,400,1);
+		this.game.load.spritesheet("cv4", "assets/img/cv4.png",266,400,1);
+		this.game.load.spritesheet("cv5", "assets/img/cv5.png",266,400,1);
+
+		this.game.load.spritesheet("bloc", "assets/img/bloc-note-carnet-spirale-laiko.png",200,266,1);
 
 		//Sound
 		game.load.audio('gameSound', 'assets/sound/music_game_1644.mp3');
-		game.load.audio('introSound', 'assets/sound/music_title_1613.mp3');
+		game.load.audio('introSound', 'assets/sound/intro_sound.mp3');
 		game.load.audio('loseSound', 'assets/sound/gameover_2321.mp3');
+
+		game.load.audio('OKButtonSound', 'assets/sound/numkey.wav');
+		game.load.audio('KOButtonSound', 'assets/sound/numkey_wrong.wav');
 
 		//sprite
 		game.load.image('profilPicture', 'assets/img/profil.png');
 
 		//button
-		game.load.image('OKButton', 'assets/img/blue_pill.png');
-		game.load.image('KOButton', 'assets/img/red_pill.png');
-		game.load.image('calcButton', 'assets/img/go.png');
+		game.load.image('OKButton', 'assets/img/cochetrue.png');
+		game.load.image('KOButton', 'assets/img/cochefalse.png');
+		game.load.image('calcButton', 'assets/img/go.jpg');
 	},
 
 	create: function() {

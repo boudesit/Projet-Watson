@@ -1,5 +1,6 @@
 function CalculateButton(game) {
 	this.game = game;
+	this.isWin = false;
 };
 
 var calcButton;
@@ -9,7 +10,7 @@ var clickCalc = false;
 
 CalculateButton.prototype.create = function create() {
 
-	calcButton = game.add.button(game.world.centerX+200, 490, 'calcButton', actionOnClickGO, this, 2, 1, 0);
+	calcButton = game.add.button(game.world.centerX+200, 480, 'calcButton', actionOnClickGO, this, 2, 1, 0);
 
 };
 
@@ -35,5 +36,13 @@ CalculateButton.prototype.relayoutButtons = function relayoutButtons() {
 };
 
 CalculateButton.prototype.calculate = function calculate(projet) {
-	alert("GOOOOOOOOOOOOOOOOOOOOOO "+projet.money.money);
+	this.setisWin(true);
+};
+
+CalculateButton.prototype.setisWin= function setisWin(isWin) {
+	this.isWin = isWin;
+};
+
+CalculateButton.prototype.getIsWin= function getIsWin() {
+	return this.isWin;
 };

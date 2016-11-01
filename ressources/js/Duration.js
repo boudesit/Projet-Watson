@@ -21,7 +21,7 @@ Duration.prototype.create = function create() {
 };
 
 Duration.prototype.update = function update() {
-  textDuration.setText("duration: " + this.getDuration() + "month,  "+ this.getMaxPerson() );
+  textDuration.setText("Duration : " + this.getDuration() + "month  Max: "+ this.getMaxPerson() );
 
 };
 
