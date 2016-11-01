@@ -65,12 +65,16 @@ CV.prototype.destroy = function destroy() {
 	textPoste.destroy();
 };
 
-CV.prototype.getNom = function update() {
+CV.prototype.getNom = function getNom() {
 	return this.nom;
 };
 
-CV.prototype.getPoste = function update() {
+CV.prototype.getPoste = function getPoste() {
 	return this.poste;
+};
+
+CV.prototype.getCouts = function getCouts() {
+	return this.couts;
 };
 
 CV.prototype.getRandom = function getRandom() {

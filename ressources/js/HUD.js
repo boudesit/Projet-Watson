@@ -95,7 +95,7 @@ this.projet.update();
 	this.calculateButton.razButtons();
 
 	this.setIsWin(this.calculateButton.getIsWin());
-
+	this.game.score = this.game.money - (this.team.getCost() * this.game.duration);
 	if (this.shakeWorld > 0)
 	{
 		var rand1 = game.rnd.integerInRange(-5,5);
