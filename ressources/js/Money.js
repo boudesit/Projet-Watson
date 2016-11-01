@@ -21,6 +21,7 @@ Money.prototype.create = function create() {
 };
 
 Money.prototype.update = function update() {
+	this.game.money = this.money;
   textMoney.setText(this.money+" €");
 
 };

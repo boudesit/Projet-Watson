@@ -1,5 +1,6 @@
 var victory = function(game){}
 
+
 victory.prototype = {
   	create: function(){
 
@@ -14,9 +15,15 @@ victory.prototype = {
 
   		var victoryTitle = this.game.add.sprite(0,0,"victory");
 
+      var style = { font: "24px Black Chancery", fill: "#000000", wordWrap: true, wordWrapWidth: sprite.width, align: "center" };
+
+      this.text = "cost: " + this.game.score;
+      this.textTeam = game.add.text(30, 220, this.text, style);
+
       this.restartButton = this.game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
       this.restartButton.onDown.add(this.playTheGame, this);
 	},
+
 	playTheGame: function(){
 		winSound.pause();
 		this.game.state.start("GameTitle");

@@ -21,6 +21,7 @@ Duration.prototype.create = function create() {
 };
 
 Duration.prototype.update = function update() {
+	this.game.duration = this.getDuration();
   textDuration.setText("Duration : " + this.getDuration() + "month  Max: "+ this.getMaxPerson() );
 
 };

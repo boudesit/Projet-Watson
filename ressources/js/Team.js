@@ -3,6 +3,7 @@ function Team(game) {
 	this.TeamSprite = null;
   this.textTeam = null;
 	this.text = null;
+	this.cost = 0;
 };
 
 var TeamTab = new Array();
@@ -24,14 +25,21 @@ Team.prototype.create = function create() {
 
 Team.prototype.update = function update() {
 	var text = "Team :\n";
+	var cost = 0;
 	for (var i = 0; i < teamCVs.length; i++) {
 		 text+="- "+teamCVs[i].getNom()+" "+teamCVs[i].getPoste()+"\n";
+		 cost+= teamCVs[i].getCouts();
 	}
+	this.cost = cost;
   this.textTeam.setText(text);
 };
 
 Team.prototype.getTeamCVs = function update() {
 	return teamCVs;
+};
+
+Team.prototype.getCost = function getCost() {
+	return this.cost;
 };
 
 //Team.prototype.update = function update() {
